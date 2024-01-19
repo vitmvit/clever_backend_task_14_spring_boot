@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="003" author="vitikova" dbms="postgresql">
+        <sql>
+            CREATE TABLE "public"."house_history"
+            (
+                "id"        bigint DEFAULT nextval('house_history_id_seq') NOT NULL,
+                "house_id"  bigint,
+                "person_id" bigint,
+                "date"      timestamp(6),
+                "type"      smallint,
+                CONSTRAINT "house_history_pkey" PRIMARY KEY ("id")
+            ) WITH (oids = false);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
