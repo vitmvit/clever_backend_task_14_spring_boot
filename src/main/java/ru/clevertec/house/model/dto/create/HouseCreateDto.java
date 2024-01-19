@@ -17,7 +17,7 @@ public class HouseCreateDto {
     @NotBlank(message = "Area is blank.")
     @NotEmpty(message = "Area is empty.")
     @Size(max = 15, message = "Area is long.")
-    private double area;
+    private String area;
 
     @NotBlank(message = "Country is blank.")
     @NotEmpty(message = "Country is empty.")

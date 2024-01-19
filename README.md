@@ -12,6 +12,8 @@
     - В GET запросах не выводить информацию о Person
 - CRUD для Person
     - В GET запросах не выводить информацию о House
+- GET для всех Person проживающих в House
+- GET для всех House, владельцем которых является Person
 - Для GET операций использовать pagination (default size: 15)
 - GET для получения всех Person когда-либо проживавших в доме
 - GET для получения всех Person когда-либо владевших домом
@@ -74,8 +76,6 @@
 
 ### Обязательно:
 
-1. GET для всех Person проживающих в House
-2. GET для всех House, владельцем которых является Person
 3. Конфигурационный файл: application.yml
 4. Скрипты для создания таблиц должны лежать в classpath:db/
 5. create_date, update_date - возвращать в формате ISO-8601 (https://en.wikipedia.org/wiki/ISO_8601). Пример:

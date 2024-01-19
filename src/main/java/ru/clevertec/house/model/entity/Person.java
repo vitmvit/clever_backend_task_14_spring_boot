@@ -46,5 +46,5 @@ public class Person extends LogModel {
             inverseJoinColumns = @JoinColumn(name = "house_id"),
             foreignKey = @ForeignKey(name = "fk_owner_house_id_to_id")
     )
-    private List<House> house;
+    private List<House> houses;
 }
