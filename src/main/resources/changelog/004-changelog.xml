@@ -4,22 +4,16 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="005" author="vitikova" dbms="postgresql">
+    <changeSet id="004" author="vitikova" dbms="postgresql">
         <sql>
-            CREATE TABLE "public"."person"
+            CREATE TABLE "public"."house_history"
             (
-                "id"              bigint DEFAULT nextval('person_id_seq') NOT NULL,
-                "uuid"            uuid                                    NOT NULL,
-                "name"            character varying(255)                  NOT NULL,
-                "surname"         character varying(255)                  NOT NULL,
-                "sex"             character varying(255)                  NOT NULL,
-                "passport_series" character varying(255),
-                "passport_number" character varying(255),
-                "create_date"     timestamp(6),
-                "update_date"     timestamp(6),
-                "house_id"        bigint                                  NOT NULL,
-                CONSTRAINT "person_pkey" PRIMARY KEY ("id"),
-                CONSTRAINT "person_uuid_key" UNIQUE ("uuid")
+                "id"        bigint DEFAULT nextval('house_history_id_seq') NOT NULL,
+                "house_id"  bigint,
+                "person_id" bigint,
+                "date"      timestamp(6),
+                "type"      type,
+                CONSTRAINT "house_history_pkey" PRIMARY KEY ("id")
             ) WITH (oids = false);
         </sql>
     </changeSet>

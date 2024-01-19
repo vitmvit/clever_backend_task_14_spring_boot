@@ -36,7 +36,7 @@
 
 ### HouseHistory:
 
-У HouseHistory обязаны быть HouseHistory (id, house_id, person_id, date, type)
+У HouseHistory обязаны быть (id, house_id, person_id, date, type)
 
 1. type [OWNER, TENANT]
     - Создать свой тип данных в БД
