@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldNameConstants
 @EntityListeners(PersonListener.class)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"passport_series", "passport_number"}))
 public class Person extends LogModel {
 
     @Column(nullable = false)

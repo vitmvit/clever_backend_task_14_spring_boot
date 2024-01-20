@@ -6,12 +6,23 @@
 
     <changeSet id="007" author="vitikova" dbms="postgresql">
         <sql>
-            ALTER TABLE ONLY "public"."house_owner"
-                ADD CONSTRAINT "fk_house_owner_id_to_id" FOREIGN KEY (house_id) REFERENCES house (id) NOT DEFERRABLE;
-            ALTER TABLE ONLY "public"."house_owner"
-                ADD CONSTRAINT "fk_owner_house_id_to_id" FOREIGN KEY (person_id) REFERENCES person (id) NOT DEFERRABLE;
-            ALTER TABLE ONLY "public"."person"
-                ADD CONSTRAINT "fk_home_resident_id_to_id" FOREIGN KEY (house_id) REFERENCES house (id) NOT DEFERRABLE;
+            CREATE OR REPLACE FUNCTION house_owner_function()
+                RETURNS trigger AS
+            '
+            BEGIN
+                INSERT INTO house_history (house_id, person_id, date, type)
+                VALUES (NEW.house_id, NEW.person_id, CURRENT_TIMESTAMP, ''OWNER'');
+
+                RETURN NEW;
+            END;
+            '
+                LANGUAGE 'plpgsql';
+
+            CREATE TRIGGER house_owner_trigger
+                AFTER UPDATE OF person_id
+                ON house_owner
+                FOR EACH ROW
+            EXECUTE FUNCTION house_owner_function();
         </sql>
     </changeSet>
 

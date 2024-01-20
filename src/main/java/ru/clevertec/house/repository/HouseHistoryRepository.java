@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.clevertec.house.model.entity.HouseHistory;
 
+import java.util.List;
+
 @Repository
 public interface HouseHistoryRepository extends JpaRepository<HouseHistory, Long> {
 
@@ -13,4 +15,6 @@ public interface HouseHistoryRepository extends JpaRepository<HouseHistory, Long
     default HouseHistory save(HouseHistory entity) {
         throw new RuntimeException("Not implemented");
     }
+
+    List<HouseHistory> findAllBy();
 }

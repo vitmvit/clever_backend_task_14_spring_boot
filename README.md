@@ -146,4 +146,8 @@ __
 
 ### Реализация:
 
+### Swagger
+
+http://localhost:8080/api/doc/swagger-ui/index.html#/
+
 

@@ -6,11 +6,23 @@
 
     <changeSet id="006" author="vitikova" dbms="postgresql">
         <sql>
-            CREATE TABLE "public"."house_owner"
-            (
-                "house_id"  bigint NOT NULL,
-                "person_id" bigint NOT NULL
-            ) WITH (oids = false);
+            CREATE OR REPLACE FUNCTION house_tenant_function()
+                RETURNS TRIGGER AS
+            '
+            BEGIN
+                INSERT INTO house_history (house_id, person_id, date, type)
+                VALUES (NEW.house_id, NEW.id, CURRENT_TIMESTAMP, ''TENANT'');
+
+                RETURN NEW;
+            END;
+            '
+                LANGUAGE plpgsql;
+
+            CREATE TRIGGER house_tenant_trigger
+                AFTER UPDATE
+                ON person
+                FOR EACH ROW
+            EXECUTE FUNCTION house_tenant_function();
         </sql>
     </changeSet>
 
