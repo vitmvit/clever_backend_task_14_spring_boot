@@ -26,13 +26,12 @@ import java.util.stream.Collectors;
 public class HouseServiceImpl implements HouseService {
 
     private final HouseRepository houseRepository;
-
     private final HouseConverter houseConverter;
     private final PersonConverter personConverter;
 
     @Override
     public HouseDto getByUUID(UUID uuid) {
-        return houseConverter.convert(houseRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new));
+        return houseConverter.convert(houseRepository.findHouseByUuid(uuid).orElseThrow(EntityNotFoundException::new));
     }
 
     @Override
@@ -45,7 +44,6 @@ public class HouseServiceImpl implements HouseService {
     public HouseDto create(HouseCreateDto dto) {
         try {
             var house = houseConverter.convert(dto);
-            house.setUuid(UUID.randomUUID());
             return houseConverter.convert(houseRepository.save(house));
         } catch (Exception e) {
             throw new EntityNotFoundException();
@@ -54,7 +52,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public HouseDto update(HouseUpdateDto dto) {
-        var house = houseRepository.findByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
+        var house = houseRepository.findHouseByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
         houseConverter.merge(house, dto);
         return houseConverter.convert(houseRepository.save(house));
     }
@@ -66,7 +64,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<PersonDto> getAllResidents(UUID uuid) {
-        var house = houseRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new);
+        var house = houseRepository.findHouseByUuid(uuid).orElseThrow(EntityNotFoundException::new);
         return house.getResidents().isEmpty()
                 ? List.of()
                 : house.getResidents().stream().map(personConverter::convert).collect(Collectors.toList());

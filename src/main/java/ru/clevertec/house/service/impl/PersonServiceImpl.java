@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
-
     private final PersonConverter personConverter;
     private final HouseConverter houseConverter;
 
@@ -45,7 +44,6 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto create(PersonCreateDto dto) {
         try {
             var person = personConverter.convert(dto);
-            person.setUuid(UUID.randomUUID());
             return personConverter.convert(personRepository.save(person));
         } catch (Exception e) {
             throw new EntityNotFoundException();

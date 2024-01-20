@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import ru.clevertec.house.constant.Sex;
+import ru.clevertec.house.listener.PersonListener;
 import ru.clevertec.house.model.entity.parent.LogModel;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldNameConstants
+@EntityListeners(PersonListener.class)
 public class Person extends LogModel {
 
     @Column(nullable = false)

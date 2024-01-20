@@ -19,22 +19,23 @@ import static ru.clevertec.house.constant.Constant.LOAD_FACTOR;
  * @param <V> тип значения
  * @author Витикова Мария
  */
+
 public class CacheLfu<K, V> implements Cache<K, V> {
 
     /**
      * Вместимость кэша
      */
-    private final int capacity;
+    private int capacity;
 
     /**
      * Карта для хранения элементов кэша
      */
-    private final Map<K, Node<K, V>> cache;
+    private Map<K, Node<K, V>> cache;
 
     /**
      * Карта для хранения элементов по их частоте использования
      */
-    private final Map<Integer, Node<K, V>> frequencyTails;
+    private Map<Integer, Node<K, V>> frequencyTails;
 
     /**
      * Первый элемент в списке элементов кэша. Последний элемент в списке содержит наибольшую частоту использования
@@ -47,11 +48,12 @@ public class CacheLfu<K, V> implements Cache<K, V> {
     private int modCount;
 
     /**
-     * Создает объект CacheLfu с указанной вместимостью.
+     * Устанавливает вместимость кэша.
      *
      * @param capacity вместимость кэша
      */
-    public CacheLfu(int capacity) {
+    @Override
+    public void capacity(int capacity) {
         this.capacity = capacity;
         int hashMapCapacity = (int) (capacity * CAPACITY_FACTOR);
         cache = new HashMap<>(hashMapCapacity, LOAD_FACTOR);

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.CreationTimestamp;
+import ru.clevertec.house.listener.HouseListener;
 import ru.clevertec.house.model.entity.parent.UuidModel;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldNameConstants
+@EntityListeners(HouseListener.class)
 public class House extends UuidModel {
 
     @Column(nullable = false)

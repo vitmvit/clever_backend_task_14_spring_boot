@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface HouseRepository extends JpaRepository<House, Long> {
 
-    Optional<House> findByUuid(UUID uuid);
+    Optional<House> findHouseByUuid(UUID uuid);
 
     void deleteByUuid(UUID uuid);
 }

@@ -19,24 +19,27 @@ import static ru.clevertec.house.constant.Constant.CAPACITY_FACTOR;
  * @param <V> тип значения
  * @author Витикова Мария
  */
+
 public class CacheLru<K, V> implements Cache<K, V> {
 
     /**
      * Вместимость кэша
      */
-    private final int capacity;
+    private int capacity;
 
     /**
      * Карта для хранения элементов кэша
      */
-    private final Map<K, V> cache;
+    private Map<K, V> cache;
+
 
     /**
-     * Создает объект CacheLru с указанной вместимостью.
+     * Устанавливает вместимость кэша.
      *
      * @param capacity вместимость кэша
      */
-    public CacheLru(int capacity) {
+    @Override
+    public void capacity(int capacity) {
         this.capacity = capacity;
         this.cache = new LinkedHashMap<>((int) (capacity * CAPACITY_FACTOR), LOAD_FACTOR);
     }
