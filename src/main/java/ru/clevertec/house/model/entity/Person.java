@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldNameConstants
 @EntityListeners(PersonListener.class)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"passport_series", "passport_number"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"uuid", "passport_series", "passport_number"}))
 public class Person extends LogModel {
 
     @Column(nullable = false)
@@ -33,7 +33,7 @@ public class Person extends LogModel {
     @Embedded
     private Passport passport;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
             name = "house_id",
             referencedColumnName = "id",

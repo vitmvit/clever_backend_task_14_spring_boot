@@ -12,6 +12,9 @@ import ru.clevertec.house.service.PersonService;
 import java.util.List;
 import java.util.UUID;
 
+import static ru.clevertec.house.constant.Constant.LIMIT_DEFAULT;
+import static ru.clevertec.house.constant.Constant.OFFSET_DEFAULT;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/persons")
@@ -20,9 +23,8 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    Page<PersonDto> getAll(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                           @RequestParam(value = "limit", defaultValue = "15") Integer limit) {
-
+    Page<PersonDto> getAll(@RequestParam(value = "offset", defaultValue = OFFSET_DEFAULT) Integer offset,
+                           @RequestParam(value = "limit", defaultValue = LIMIT_DEFAULT) Integer limit) {
         return personService.getAll(offset, limit);
     }
 

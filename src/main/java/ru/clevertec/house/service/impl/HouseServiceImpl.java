@@ -42,12 +42,8 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public HouseDto create(HouseCreateDto dto) {
-        try {
             var house = houseConverter.convert(dto);
             return houseConverter.convert(houseRepository.save(house));
-        } catch (Exception e) {
-            throw new EntityNotFoundException();
-        }
     }
 
     @Override
@@ -59,7 +55,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public void delete(UUID uuid) {
-        houseRepository.deleteByUuid(uuid);
+        houseRepository.deleteHouseByUuid(uuid);
     }
 
     @Override

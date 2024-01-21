@@ -22,4 +22,10 @@ public class ExceptionHandlerController {
     public ErrorDto error(CacheNotFoundException e) {
         return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto error(RuntimeException e) {
+        return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
+    }
 }

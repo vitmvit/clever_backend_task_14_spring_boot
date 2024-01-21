@@ -87,10 +87,8 @@ public class PersonProxyService {
      */
     @Around("updateMethod()")
     public Object doUpdate(ProceedingJoinPoint pjp) throws Throwable {
-        UUID uuid = (UUID) pjp.getArgs()[0];
-        PersonDto personDto = (PersonDto) pjp.getArgs()[1];
-        pjp.proceed();
-        cache.put(uuid, personDto);
+        PersonDto personDto = (PersonDto) pjp.proceed();
+        cache.put(personDto.getUuid(), personDto);
         return personDto;
     }
 

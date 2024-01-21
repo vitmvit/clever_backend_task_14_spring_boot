@@ -88,10 +88,8 @@ public class HouseProxyService {
      */
     @Around("updateMethod()")
     public Object doUpdate(ProceedingJoinPoint pjp) throws Throwable {
-        UUID uuid = (UUID) pjp.getArgs()[0];
-        HouseDto houseDto = (HouseDto) pjp.getArgs()[1];
-        pjp.proceed();
-        cache.put(uuid, houseDto);
+        HouseDto houseDto = (HouseDto) pjp.proceed();
+        cache.put(houseDto.getUuid(), houseDto);
         return houseDto;
     }
 

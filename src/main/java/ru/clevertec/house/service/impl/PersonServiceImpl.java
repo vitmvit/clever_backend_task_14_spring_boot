@@ -13,7 +13,9 @@ import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.model.dto.create.PersonCreateDto;
 import ru.clevertec.house.model.dto.update.PersonUpdateDto;
 import ru.clevertec.house.model.entity.Person;
+import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.repository.PersonRepository;
+import ru.clevertec.house.service.HouseService;
 import ru.clevertec.house.service.PersonService;
 
 import java.util.List;
@@ -27,11 +29,14 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
     private final PersonConverter personConverter;
+    private final HouseService houseService;
     private final HouseConverter houseConverter;
+    private final HouseRepository houseRepository;
 
     @Override
     public PersonDto getByUUID(UUID uuid) {
-        return personConverter.convert(personRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new));
+        var c = personRepository.findPersonByUuid(uuid).orElseThrow(EntityNotFoundException::new);
+        return personConverter.convert(c);
     }
 
     @Override
@@ -42,17 +47,14 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDto create(PersonCreateDto dto) {
-        try {
-            var person = personConverter.convert(dto);
-            return personConverter.convert(personRepository.save(person));
-        } catch (Exception e) {
-            throw new EntityNotFoundException();
-        }
+        var person = personConverter.convert(dto);
+        person.setHome(houseRepository.findHouseByUuid(dto.getHomeUuid()).orElseThrow(EntityNotFoundException::new));
+        return personConverter.convert(personRepository.save(person));
     }
 
     @Override
     public PersonDto update(PersonUpdateDto dto) {
-        var person = personRepository.findByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
+        var person = personRepository.findPersonByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
         personConverter.merge(person, dto);
         return personConverter.convert(personRepository.save(person));
     }
@@ -64,7 +66,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<HouseDto> getAllHouses(UUID uuid) {
-        var person = personRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new);
+        var person = personRepository.findPersonByUuid(uuid).orElseThrow(EntityNotFoundException::new);
         return person.getHouses().isEmpty()
                 ? List.of()
                 : person.getHouses().stream().map(houseConverter::convert).collect(Collectors.toList());

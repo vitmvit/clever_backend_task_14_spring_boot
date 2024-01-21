@@ -10,13 +10,14 @@ import ru.clevertec.house.model.entity.Person;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PersonConverter {
+
     PersonDto convert(Person source);
 
     Person convert(PersonCreateDto source);
 
     Person convert(PersonUpdateDto source);
 
-    Person merge(@MappingTarget Person house, PersonUpdateDto dto);
+    Person merge(@MappingTarget Person person, PersonUpdateDto dto);
 }
 
 

@@ -15,8 +15,7 @@ public class PersonDto extends UuidDto {
     private String name;
     private String surname;
     private Sex sex;
-    private String passportSeries;
-    private String passportNumber;
+    private PassportDto passport;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime createDate;

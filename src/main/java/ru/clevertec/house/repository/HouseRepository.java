@@ -12,5 +12,5 @@ public interface HouseRepository extends JpaRepository<House, Long> {
 
     Optional<House> findHouseByUuid(UUID uuid);
 
-    void deleteByUuid(UUID uuid);
+    void deleteHouseByUuid(UUID uuid);
 }
