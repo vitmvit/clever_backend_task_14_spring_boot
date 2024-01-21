@@ -2,12 +2,14 @@ package ru.clevertec.house.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class PassportDto {
 
     @NotBlank(message = "Passport series is blank.")

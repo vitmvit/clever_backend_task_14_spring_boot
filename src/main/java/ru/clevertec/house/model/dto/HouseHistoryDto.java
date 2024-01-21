@@ -1,20 +1,20 @@
 package ru.clevertec.house.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import ru.clevertec.house.constant.Type;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public record HouseHistoryDto(
+@Getter
+@Setter
+@AllArgsConstructor
+public class HouseHistoryDto {
 
-        Long id,
-        UUID uuid,
-        Long houseId,
-        Long personId,
-
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-        LocalDateTime date,
-        Type type
-) {
+        private Long id;
+        private Long houseId;
+        private Long personId;
+        private LocalDateTime date;
+        private Type type;
 }

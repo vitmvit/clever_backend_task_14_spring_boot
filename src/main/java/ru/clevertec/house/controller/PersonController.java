@@ -2,6 +2,8 @@ package ru.clevertec.house.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
@@ -23,33 +25,45 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    Page<PersonDto> getAll(@RequestParam(value = "offset", defaultValue = OFFSET_DEFAULT) Integer offset,
-                           @RequestParam(value = "limit", defaultValue = LIMIT_DEFAULT) Integer limit) {
-        return personService.getAll(offset, limit);
+    public ResponseEntity<Page<PersonDto>> getAll(@RequestParam(value = "offset", defaultValue = OFFSET_DEFAULT) Integer offset,
+                                                  @RequestParam(value = "limit", defaultValue = LIMIT_DEFAULT) Integer limit) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personService.getAll(offset, limit));
     }
 
     @GetMapping("/{uuid}")
-    PersonDto getByUuid(@PathVariable("uuid") UUID uuid) {
-        return personService.getByUUID(uuid);
+    public ResponseEntity<PersonDto> getByUuid(@PathVariable("uuid") UUID uuid) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personService.getByUUID(uuid));
     }
 
     @GetMapping("houses/{uuid}")
-    List<HouseDto> getAllHouses(@PathVariable("uuid") UUID uuid) {
-        return personService.getAllHouses(uuid);
+    public ResponseEntity<List<HouseDto>> getAllHouses(@PathVariable("uuid") UUID uuid) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personService.getAllHouses(uuid));
     }
 
     @PostMapping
-    PersonDto create(@RequestBody PersonCreateDto personCreateDto) {
-        return personService.create(personCreateDto);
+    public ResponseEntity<PersonDto> create(@RequestBody PersonCreateDto personCreateDto) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(personService.create(personCreateDto));
     }
 
     @PutMapping
-    PersonDto update(@RequestBody PersonUpdateDto personUpdateDto) {
-        return personService.update(personUpdateDto);
+    public ResponseEntity<PersonDto> update(@RequestBody PersonUpdateDto personUpdateDto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personService.update(personUpdateDto));
     }
 
     @DeleteMapping("/{uuid}")
-    void delete(@PathVariable("uuid") UUID uuid) {
+    public ResponseEntity<Void> delete(@PathVariable("uuid") UUID uuid) {
         personService.delete(uuid);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

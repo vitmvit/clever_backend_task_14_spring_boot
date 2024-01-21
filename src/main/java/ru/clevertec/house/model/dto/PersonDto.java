@@ -1,6 +1,7 @@
 package ru.clevertec.house.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.clevertec.house.constant.Sex;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class PersonDto extends UuidDto {
 
     private String name;

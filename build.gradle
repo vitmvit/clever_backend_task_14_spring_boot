@@ -20,12 +20,15 @@ dependencies {
     implementation 'org.liquibase:liquibase-core:4.25.1'
 
     implementation 'org.postgresql:postgresql:42.6.0'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
 
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'com.h2database:h2:2.2.224'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.2.1'
