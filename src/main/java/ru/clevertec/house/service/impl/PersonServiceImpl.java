@@ -15,7 +15,6 @@ import ru.clevertec.house.model.dto.update.PersonUpdateDto;
 import ru.clevertec.house.model.entity.Person;
 import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.repository.PersonRepository;
-import ru.clevertec.house.service.HouseService;
 import ru.clevertec.house.service.PersonService;
 
 import java.util.List;
@@ -29,7 +28,6 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
     private final PersonConverter personConverter;
-    private final HouseService houseService;
     private final HouseConverter houseConverter;
     private final HouseRepository houseRepository;
 

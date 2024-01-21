@@ -8,7 +8,7 @@ cache:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/clever_lab_task_14
+    url: jdbc:postgresql://localhost:5432/clever_lab_task_14?stringtype=unspecified
     username: root
     password: root
   liquibase:

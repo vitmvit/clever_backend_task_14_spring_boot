@@ -43,7 +43,9 @@
 
             INSERT INTO "house_history" ("id", "house_id", "person_id", "date", "type")
             VALUES (1, 2, 1, '2024-01-19 15:52:48.646771', 'TENANT'),
-                   (2, 1, 4, '2024-01-19 15:53:10.927848', 'OWNER');
+                   (2, 1, 4, '2024-01-19 15:53:10.927848', 'OWNER'),
+                   (3, 1, 5, '2024-01-21 13:19:52.01473', 'TENANT'),
+                   (4, 2, 2, '2024-01-19 15:52:48.646771', 'TENANT');
 
             INSERT INTO "house_owner" ("house_id", "person_id")
             VALUES (1, 6),

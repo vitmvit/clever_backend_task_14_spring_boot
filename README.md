@@ -862,6 +862,169 @@ Request:
 http://localhost:8080/api/persons/06d562e4-4bfd-4897-88b7-5d00acf6ac26
 ```
 
+__
+
+### HouseHistoryController
+
+#### GET getAllPersonResidingInHouse(UUID houseUuid):
+
+GET для получения всех Person когда-либо проживавших в доме
+
+Request:
+
+```http request
+http://localhost:8080/api/history/residing/71d9d979-48d9-420c-9454-912225476fef
+```
+
+Response:
+
+```json
+[
+  {
+    "uuid": "33447590-3f82-4ae7-a9f6-4b140475c18f",
+    "name": "Sophia",
+    "surname": "Johnson",
+    "sex": "MALE",
+    "passport": {
+      "passportSeries": "AB",
+      "passportNumber": "1234567"
+    },
+    "createDate": "2024-01-19T13:23:18.356",
+    "updateDate": "2024-01-19T13:23:18.356"
+  },
+  {
+    "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
+    "name": "Noah",
+    "surname": "Smith",
+    "sex": "FEMALE",
+    "passport": {
+      "passportSeries": "CD",
+      "passportNumber": "9876543"
+    },
+    "createDate": "2024-01-19T13:24:19.361",
+    "updateDate": "2024-01-19T13:24:19.361"
+  }
+]
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
+}
+```
+
+#### GET getAllPersonOwnedHouse(UUID houseUuid):
+
+GET для получения всех Person когда-либо владевших домом
+
+Request:
+
+```http request
+http://localhost:8080/api/history/owned/6d316b83-126e-4090-bc81-4125a68923c0
+```
+
+Response:
+
+```json
+
+[
+  {
+    "uuid": "7736bed0-5b5c-4fbc-a919-e56f947a59b7",
+    "name": "Liam",
+    "surname": "Davis",
+    "sex": "MALE",
+    "passport": {
+      "passportSeries": "GH",
+      "passportNumber": "7654321"
+    },
+    "createDate": "2024-01-19T13:26:03.433",
+    "updateDate": "2024-01-19T13:26:03.433"
+  }
+]
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
+}
+```
+
+#### GET getAllHousesByPerson(UUID personUuid):
+
+GET для получения всех House где проживал Person
+
+Request:
+
+```http request
+http://localhost:8080/api/history/resided/54b9906a-8747-4af7-b641-2a803849f2d1
+```
+
+Response:
+
+```json
+[
+  {
+    "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+    "area": "AreaTwo",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetTwo",
+    "number": 56,
+    "createDate": "2024-01-19T13:17:12.830"
+  }
+]
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
+}
+```
+
+#### GET getAllHousesOwnedByPerson(UUID personUuid):
+
+GET для получения всех House которыми когда-либо владел Person
+
+Request:
+
+```http request
+http://localhost:8080/api/history/belonged/33447590-3f82-4ae7-a9f6-4b140475c18f
+```
+
+Response:
+
+```json
+[
+  {
+    "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
+    "area": "AreaOne",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetOne",
+    "number": 19,
+    "createDate": "2024-01-19T13:16:13.992"
+  }
+]
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
+}
+```
+
 ### Swagger
 
 http://localhost:8080/api/doc/swagger-ui/index.html#/
