@@ -15,6 +15,7 @@ import ru.clevertec.house.util.HouseTestBuilder;
 import ru.clevertec.house.util.PersonTestBuilder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -53,7 +54,7 @@ public class HouseHistoryControllerTest {
 
         mvc.perform(get("/api/history/residing/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> mvcResult.getResolvedException().getClass().equals(EntityNotFoundException.class));
+                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
     }
 
     @Test
@@ -76,7 +77,7 @@ public class HouseHistoryControllerTest {
 
         mvc.perform(get("/api/history/owned/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> mvcResult.getResolvedException().getClass().equals(EntityNotFoundException.class));
+                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class HouseHistoryControllerTest {
 
         mvc.perform(get("/api/history/resided/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> mvcResult.getResolvedException().getClass().equals(EntityNotFoundException.class));
+                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
     }
 
     @Test
@@ -122,6 +123,6 @@ public class HouseHistoryControllerTest {
 
         mvc.perform(get("/api/history/belonged/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> mvcResult.getResolvedException().getClass().equals(EntityNotFoundException.class));
+                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
     }
 }

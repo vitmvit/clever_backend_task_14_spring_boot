@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.clevertec.house.converter.HouseConverter;
 import ru.clevertec.house.converter.PersonConverter;
+import ru.clevertec.house.exception.EmptyListException;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
@@ -41,6 +42,13 @@ public class PersonServiceImpl implements PersonService {
     public Page<PersonDto> getAll(Integer offset, Integer limit) {
         Page<Person> personPage = personRepository.findAll(PageRequest.of(offset, limit));
         return personPage.map(personConverter::convert);
+    }
+
+    @Override
+    public List<PersonDto> searchBySurname(String surname) {
+        var personList = personRepository.findBySurnameContaining(surname);
+        personList.stream().findAny().orElseThrow(EmptyListException::new);
+        return personList.stream().map(personConverter::convert).collect(Collectors.toList());
     }
 
     @Override

@@ -1025,6 +1025,114 @@ Not found:
 }
 ```
 
+___
+
+### SearchController
+
+#### GET searchPersonBySurname(String surname)
+
+Request:
+
+```http request
+http://localhost:8080/api/search/person/S
+```
+
+Response:
+
+```json
+[
+  {
+    "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
+    "name": "Noah",
+    "surname": "Smith",
+    "sex": "FEMALE",
+    "passport": {
+      "passportSeries": "CD",
+      "passportNumber": "9876543"
+    },
+    "createDate": "2024-01-19T13:24:19.361",
+    "updateDate": "2024-01-19T13:24:19.361"
+  }
+]
+```
+
+Empty list:
+
+```json
+{
+  "errorMessage": "List is empty!",
+  "errorCode": 404
+}
+```
+
+#### GET searchHouseByCity(String city)
+
+Request:
+
+```http request
+http://localhost:8080/api/search/house/i
+```
+
+Response:
+
+```json
+[
+  {
+    "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
+    "area": "AreaOne",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetOne",
+    "number": 19,
+    "createDate": "2024-01-19T13:16:13.992"
+  },
+  {
+    "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+    "area": "AreaTwo",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetTwo",
+    "number": 56,
+    "createDate": "2024-01-19T13:17:12.830"
+  },
+  {
+    "uuid": "f291c4bb-58a0-4800-bfc8-104217051d24",
+    "area": "AreaThree",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetThree",
+    "number": 43,
+    "createDate": "2024-01-19T13:17:47.442"
+  },
+  {
+    "uuid": "7c204d2c-b694-4dc4-a73a-9fa99b02973f",
+    "area": "AreaTwo",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetOne",
+    "number": 98,
+    "createDate": "2024-01-19T13:18:17.079"
+  },
+  {
+    "uuid": "b6baf98c-ea5a-48ec-a4e5-645998c1cceb",
+    "area": "AreaOne",
+    "country": "Country",
+    "city": "City",
+    "street": "StreetOne",
+    "number": 13,
+    "createDate": "2024-01-19T13:18:39.911"
+  }
+]
+```
+
+Empty list:
+
+```json
+{
+  "errorMessage": "List is empty!",
+  "errorCode": 404
+}
+
 ### Swagger
 
 http://localhost:8080/api/doc/swagger-ui/index.html#/

@@ -7,6 +7,9 @@ public class Constant {
     public static final String OFFSET_DEFAULT = "0";
     public static final String LIMIT_DEFAULT = "15";
 
+    public static final String NAME_DEFAULT = "";
+    public static final String SURNAME_DEFAULT = "";
+
     // cache
     public static final String LRU = "lru";
     public static final String LFU = "lfu";

@@ -15,6 +15,8 @@ public interface HouseService {
 
     Page<HouseDto> getAll(Integer offset, Integer limit);
 
+    List<HouseDto> searchByCity(String city);
+
     HouseDto create(HouseCreateDto dto);
 
     HouseDto update(HouseUpdateDto dto);

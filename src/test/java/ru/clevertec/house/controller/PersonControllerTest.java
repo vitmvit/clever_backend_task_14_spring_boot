@@ -20,6 +20,7 @@ import ru.clevertec.house.util.HouseTestBuilder;
 import ru.clevertec.house.util.PersonTestBuilder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -62,7 +63,7 @@ public class PersonControllerTest {
 
         mvc.perform(get("/api/persons/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> mvcResult.getResolvedException().getClass().equals(EntityNotFoundException.class));
+                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
     }
 
     @Test

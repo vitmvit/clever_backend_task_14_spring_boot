@@ -19,5 +19,7 @@ public interface HouseRepository extends JpaRepository<House, Long> {
         return list.stream().map(p -> findById(p).orElseThrow(EntityNotFoundException::new)).collect(Collectors.toList());
     }
 
+    List<House> findByCityContaining(String city);
+
     void deleteHouseByUuid(UUID uuid);
 }

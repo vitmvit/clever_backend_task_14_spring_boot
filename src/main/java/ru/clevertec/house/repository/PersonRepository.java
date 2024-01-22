@@ -19,5 +19,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
         return list.stream().map(p -> findById(p).orElseThrow(EntityNotFoundException::new)).collect(Collectors.toList());
     }
 
+    List<Person> findBySurnameContaining(String surname);
+
     void deleteByUuid(UUID uuid);
 }

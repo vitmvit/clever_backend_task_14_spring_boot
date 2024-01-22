@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.clevertec.house.converter.HouseConverter;
 import ru.clevertec.house.converter.PersonConverter;
+import ru.clevertec.house.exception.EmptyListException;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
@@ -41,9 +42,16 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<HouseDto> searchByCity(String city) {
+        var houseList = houseRepository.findByCityContaining(city);
+        houseList.stream().findAny().orElseThrow(EmptyListException::new);
+        return houseList.stream().map(houseConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
     public HouseDto create(HouseCreateDto dto) {
-            var house = houseConverter.convert(dto);
-            return houseConverter.convert(houseRepository.save(house));
+        var house = houseConverter.convert(dto);
+        return houseConverter.convert(houseRepository.save(house));
     }
 
     @Override

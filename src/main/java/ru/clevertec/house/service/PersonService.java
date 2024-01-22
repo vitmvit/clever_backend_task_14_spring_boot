@@ -15,6 +15,8 @@ public interface PersonService {
 
     Page<PersonDto> getAll(Integer offset, Integer limit);
 
+    List<PersonDto> searchBySurname(String surname);
+
     PersonDto create(PersonCreateDto dto);
 
     PersonDto update(PersonUpdateDto dto);
