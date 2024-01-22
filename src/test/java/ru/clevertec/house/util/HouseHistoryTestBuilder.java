@@ -20,7 +20,7 @@ public class HouseHistoryTestBuilder {
     private Long houseId = 2L;
     @Builder.Default
     private Long personId = 1L;
-    ;
+
     @Builder.Default
     private Type type = Type.TENANT;
 
