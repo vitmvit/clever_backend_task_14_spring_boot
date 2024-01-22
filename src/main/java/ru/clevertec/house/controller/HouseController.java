@@ -36,7 +36,7 @@ public class HouseController {
     public ResponseEntity<HouseDto> getByUuid(@PathVariable("uuid") UUID uuid) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(houseService.getByUUID(uuid));
+                .body(houseService.getByUuid(uuid));
     }
 
     @GetMapping("residents/{uuid}")

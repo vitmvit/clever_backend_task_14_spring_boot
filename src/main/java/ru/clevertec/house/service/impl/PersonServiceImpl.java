@@ -32,7 +32,7 @@ public class PersonServiceImpl implements PersonService {
     private final HouseRepository houseRepository;
 
     @Override
-    public PersonDto getByUUID(UUID uuid) {
+    public PersonDto getByUuid(UUID uuid) {
         var c = personRepository.findPersonByUuid(uuid).orElseThrow(EntityNotFoundException::new);
         return personConverter.convert(c);
     }

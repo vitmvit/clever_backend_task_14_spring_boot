@@ -30,7 +30,7 @@ public class HouseServiceImpl implements HouseService {
     private final PersonConverter personConverter;
 
     @Override
-    public HouseDto getByUUID(UUID uuid) {
+    public HouseDto getByUuid(UUID uuid) {
         return houseConverter.convert(houseRepository.findHouseByUuid(uuid).orElseThrow(EntityNotFoundException::new));
     }
 

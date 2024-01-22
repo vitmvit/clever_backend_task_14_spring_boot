@@ -27,6 +27,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.clevertec.house.constant.Constant.LIMIT;
+import static ru.clevertec.house.constant.Constant.OFFSET;
 
 @WebMvcTest(PersonController.class)
 public class PersonControllerTest {
@@ -42,7 +44,7 @@ public class PersonControllerTest {
     void getByUuidShouldReturnExpectedHouseDtoAndStatus200() throws Exception {
         PersonDto expected = PersonTestBuilder.builder().build().buildPersonDto();
 
-        when(personService.getByUUID(expected.getUuid())).thenReturn(expected);
+        when(personService.getByUuid(expected.getUuid())).thenReturn(expected);
 
         mvc.perform(get("/api/persons/" + expected.getUuid()))
                 .andExpect(status().isOk())
@@ -56,7 +58,7 @@ public class PersonControllerTest {
     public void getByUuidShouldReturnExceptionAndStatus404() throws Exception {
         UUID uuid = PersonTestBuilder.builder().build().getUuid();
 
-        when(personService.getByUUID(any())).thenThrow(new EntityNotFoundException());
+        when(personService.getByUuid(any())).thenThrow(new EntityNotFoundException());
 
         mvc.perform(get("/api/persons/" + uuid))
                 .andExpect(status().isNotFound())
@@ -65,14 +67,12 @@ public class PersonControllerTest {
 
     @Test
     public void getAllShouldReturnExpectedPageHouseDto() throws Exception {
-        int offset = 0;
-        int limit = 3;
         List<PersonDto> listPersonDto = PersonTestBuilder.builder().build().getListPersonDto();
-        Page<PersonDto> personDtoPage = new PageImpl<>(listPersonDto, PageRequest.of(offset, limit), listPersonDto.size());
+        Page<PersonDto> personDtoPage = new PageImpl<>(listPersonDto, PageRequest.of(OFFSET, LIMIT), listPersonDto.size());
 
-        given(personService.getAll(offset, limit)).willReturn(personDtoPage);
+        given(personService.getAll(OFFSET, LIMIT)).willReturn(personDtoPage);
 
-        mvc.perform(get("/api/persons?page=" + offset + "&size=" + limit)
+        mvc.perform(get("/api/persons?page=" + OFFSET + "&size=" + LIMIT)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -110,7 +110,7 @@ public class PersonControllerTest {
         PersonUpdateDto personUpdateDto = PersonTestBuilder.builder().build().buildPersonUpdateDto();
 
         when(personService.update(any())).thenReturn(expected);
-        when(personService.getByUUID(any())).thenReturn(expected);
+        when(personService.getByUuid(any())).thenReturn(expected);
 
         mvc.perform(put("/api/persons")
                         .content(objectMapper.writeValueAsString(personUpdateDto))
@@ -125,7 +125,7 @@ public class PersonControllerTest {
     public void deleteShouldReturnStatus204() throws Exception {
         PersonDto expected = PersonTestBuilder.builder().build().buildPersonDto();
 
-        when(personService.getByUUID(any())).thenReturn(expected);
+        when(personService.getByUuid(any())).thenReturn(expected);
 
         mvc.perform(delete("/api/persons/" + expected.getUuid()))
                 .andExpect(status().isNoContent());

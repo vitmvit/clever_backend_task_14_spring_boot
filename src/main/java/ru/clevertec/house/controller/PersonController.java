@@ -37,7 +37,7 @@ public class PersonController {
     public ResponseEntity<PersonDto> getByUuid(@PathVariable("uuid") UUID uuid) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(personService.getByUUID(uuid));
+                .body(personService.getByUuid(uuid));
     }
 
     @GetMapping("houses/{uuid}")

@@ -22,7 +22,7 @@ public class HouseProxyService {
         return super.hashCode();
     }
 
-    @Pointcut("execution(* ru.clevertec.house.service.impl.HouseServiceImpl.getByUUID(..)))")
+    @Pointcut("execution(* ru.clevertec.house.service.impl.HouseServiceImpl.getByUuid(..)))")
     public void getMethod() {
 
     }

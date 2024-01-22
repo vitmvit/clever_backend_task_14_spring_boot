@@ -20,5 +20,4 @@ public class PassportTestBuilder {
     public PassportDto buildPassportDto() {
         return new PassportDto(passportSeries, passportNumber);
     }
-
 }

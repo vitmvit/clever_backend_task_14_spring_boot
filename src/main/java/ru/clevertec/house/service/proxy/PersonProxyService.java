@@ -21,7 +21,7 @@ public class PersonProxyService {
         return super.hashCode();
     }
 
-    @Pointcut("execution(* ru.clevertec.house.service.impl.PersonServiceImpl.getByUUID(..)))")
+    @Pointcut("execution(* ru.clevertec.house.service.impl.PersonServiceImpl.getByUuid(..)))")
     public void getMethod() {
 
     }

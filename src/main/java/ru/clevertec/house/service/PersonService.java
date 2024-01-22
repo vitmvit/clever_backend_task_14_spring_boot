@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface PersonService {
 
-    PersonDto getByUUID(UUID uuid);
+    PersonDto getByUuid(UUID uuid);
 
     Page<PersonDto> getAll(Integer offset, Integer limit);
 

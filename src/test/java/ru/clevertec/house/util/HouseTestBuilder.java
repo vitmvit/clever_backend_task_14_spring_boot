@@ -39,7 +39,7 @@ public class HouseTestBuilder {
     private LocalDateTime createDate = LocalDateTime.of(2024, 1, 3, 9, 12, 15, 156);
 
     @Builder.Default
-    private List<Person> residents = List.of();
+    private List<Person> residents = List.of(new Person(), new Person());
 
     @Builder.Default
     private List<Person> owners = List.of();

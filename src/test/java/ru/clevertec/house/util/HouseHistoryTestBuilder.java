@@ -6,6 +6,7 @@ import ru.clevertec.house.model.dto.HouseHistoryDto;
 import ru.clevertec.house.model.entity.HouseHistory;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Builder(setterPrefix = "with")
@@ -21,7 +22,7 @@ public class HouseHistoryTestBuilder {
     private Long personId = 1L;
     ;
     @Builder.Default
-    private Type type = Type.OWNER;
+    private Type type = Type.TENANT;
 
     public HouseHistory buildHouseHistory() {
         var houseHistory = new HouseHistory(houseId, personId, date, type);
@@ -35,5 +36,10 @@ public class HouseHistoryTestBuilder {
 
     public UUID getUuid() {
         return UUID.fromString("8a131fbc-38bf-4689-8f0b-958cef82a3ef");
+    }
+
+    public List<Long> getListLong() {
+        List<Long> list = List.of(1L, 2L);
+        return list;
     }
 }

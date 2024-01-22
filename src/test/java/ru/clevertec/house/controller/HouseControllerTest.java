@@ -27,6 +27,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.clevertec.house.constant.Constant.LIMIT;
+import static ru.clevertec.house.constant.Constant.OFFSET;
 
 @WebMvcTest(HouseController.class)
 public class HouseControllerTest {
@@ -42,7 +44,7 @@ public class HouseControllerTest {
     void getByUuidShouldReturnExpectedHouseDtoAndStatus200() throws Exception {
         HouseDto expected = HouseTestBuilder.builder().build().buildHouseDto();
 
-        when(houseService.getByUUID(expected.getUuid())).thenReturn(expected);
+        when(houseService.getByUuid(expected.getUuid())).thenReturn(expected);
 
         mvc.perform(get("/api/houses/" + expected.getUuid()))
                 .andExpect(status().isOk())
@@ -58,7 +60,7 @@ public class HouseControllerTest {
     public void getByUuidShouldReturnExceptionAndStatus404() throws Exception {
         UUID uuid = HouseTestBuilder.builder().build().getUuid();
 
-        when(houseService.getByUUID(any())).thenThrow(new EntityNotFoundException());
+        when(houseService.getByUuid(any())).thenThrow(new EntityNotFoundException());
 
         mvc.perform(get("/api/houses/" + uuid))
                 .andExpect(status().isNotFound())
@@ -66,15 +68,13 @@ public class HouseControllerTest {
     }
 
     @Test
-    public void getAllShouldReturnExpectedPageHouseDto() throws Exception {
-        int offset = 0;
-        int limit = 3;
+    public void getAllShouldReturnExpectedPageHouseDtoAndStatus200() throws Exception {
         List<HouseDto> listHouseDto = HouseTestBuilder.builder().build().getListHouseDto();
-        Page<HouseDto> houseDtoPage = new PageImpl<>(listHouseDto, PageRequest.of(offset, limit), listHouseDto.size());
+        Page<HouseDto> houseDtoPage = new PageImpl<>(listHouseDto, PageRequest.of(OFFSET, LIMIT), listHouseDto.size());
 
-        given(houseService.getAll(offset, limit)).willReturn(houseDtoPage);
+        given(houseService.getAll(OFFSET, LIMIT)).willReturn(houseDtoPage);
 
-        mvc.perform(get("/api/houses?page=" + offset + "&size=" + limit)
+        mvc.perform(get("/api/houses?page=" + OFFSET + "&size=" + LIMIT)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -112,7 +112,7 @@ public class HouseControllerTest {
         HouseUpdateDto houseUpdateDto = HouseTestBuilder.builder().build().buildHouseUpdateDto();
 
         when(houseService.update(any())).thenReturn(expected);
-        when(houseService.getByUUID(any())).thenReturn(expected);
+        when(houseService.getByUuid(any())).thenReturn(expected);
 
         mvc.perform(put("/api/houses")
                         .content(objectMapper.writeValueAsString(houseUpdateDto))
@@ -126,7 +126,7 @@ public class HouseControllerTest {
     public void deleteShouldReturnStatus204() throws Exception {
         HouseDto expected = HouseTestBuilder.builder().build().buildHouseDto();
 
-        when(houseService.getByUUID(any())).thenReturn(expected);
+        when(houseService.getByUuid(any())).thenReturn(expected);
 
         mvc.perform(delete("/api/houses/" + expected.getUuid()))
                 .andExpect(status().isNoContent());

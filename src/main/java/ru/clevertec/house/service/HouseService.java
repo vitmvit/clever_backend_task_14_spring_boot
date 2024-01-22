@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface HouseService {
 
-    HouseDto getByUUID(UUID uuid);
+    HouseDto getByUuid(UUID uuid);
 
     Page<HouseDto> getAll(Integer offset, Integer limit);
 
