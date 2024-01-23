@@ -20,19 +20,10 @@ import java.util.List;
 @EntityListeners(HouseListener.class)
 public class House extends UuidModel {
 
-    @Column(nullable = false)
     private String area;
-
-    @Column(nullable = false)
     private String country;
-
-    @Column(nullable = false)
     private String city;
-
-    @Column(nullable = false)
     private String street;
-
-    @Column(nullable = false)
     private int number;
 
     @CreationTimestamp

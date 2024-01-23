@@ -20,13 +20,9 @@ import java.util.List;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"uuid", "passport_series", "passport_number"}))
 public class Person extends LogModel {
 
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String surname;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
@@ -37,7 +33,6 @@ public class Person extends LogModel {
     @JoinColumn(
             name = "house_id",
             referencedColumnName = "id",
-            nullable = false,
             foreignKey = @ForeignKey(name = "fk_home_resident_id_to_id")
     )
     private House home;
