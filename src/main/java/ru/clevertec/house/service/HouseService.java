@@ -21,6 +21,8 @@ public interface HouseService {
 
     HouseDto update(HouseUpdateDto dto);
 
+    HouseDto patch(HouseUpdateDto houseUpdateDto);
+
     void delete(UUID uuid);
 
     List<PersonDto> getAllResidents(UUID uuid);

@@ -9,6 +9,7 @@ import ru.clevertec.house.converter.HouseConverter;
 import ru.clevertec.house.converter.PersonConverter;
 import ru.clevertec.house.exception.EmptyListException;
 import ru.clevertec.house.exception.EntityNotFoundException;
+import ru.clevertec.house.exception.PatchException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.model.dto.create.HouseCreateDto;
@@ -16,6 +17,7 @@ import ru.clevertec.house.model.dto.update.HouseUpdateDto;
 import ru.clevertec.house.model.entity.House;
 import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.service.HouseService;
+import ru.clevertec.house.util.Patcher;
 
 import java.util.List;
 import java.util.UUID;
@@ -59,6 +61,18 @@ public class HouseServiceImpl implements HouseService {
         var house = houseRepository.findHouseByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
         houseConverter.merge(house, dto);
         return houseConverter.convert(houseRepository.save(house));
+    }
+
+    @Override
+    public HouseDto patch(HouseUpdateDto houseUpdateDto) {
+        var house = houseRepository.findHouseByUuid(houseUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
+        try {
+            Patcher.housePatcher(house, houseConverter.merge(house, houseUpdateDto));
+            houseRepository.save(house);
+            return houseConverter.convert(house);
+        } catch (IllegalAccessException e) {
+            throw new PatchException();
+        }
     }
 
     @Override

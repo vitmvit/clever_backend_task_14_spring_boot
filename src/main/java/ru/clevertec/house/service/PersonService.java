@@ -21,6 +21,8 @@ public interface PersonService {
 
     PersonDto update(PersonUpdateDto dto);
 
+    PersonDto patch(PersonUpdateDto personUpdateDto);
+
     void delete(UUID uuid);
 
     List<HouseDto> getAllHouses(UUID uuid);

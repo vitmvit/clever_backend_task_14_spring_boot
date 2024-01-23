@@ -451,6 +451,50 @@ Response:
 }
 ```
 
+#### PATCH patch(HouseUpdateDto houseUpdateDto):
+
+Request:
+
+```http request
+http://localhost:8080/api/houses
+```
+
+Body:
+
+```json
+{
+  "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+  "area": "Area",
+  "country": "CountryOne",
+  "city": "City",
+  "street": "StreetOne",
+  "number": 35
+}
+```
+
+Response:
+
+```json
+{
+  "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+  "area": "Area",
+  "country": "CountryOne",
+  "city": "City",
+  "street": "StreetOne",
+  "number": 35,
+  "createDate": "2024-01-19T13:17:12.830"
+}
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
+}
+```
+
 #### DELETE delete(UUID uuid):
 
 Request:
@@ -851,6 +895,56 @@ Response:
   },
   "createDate": "2024-01-21T14:43:29.382",
   "updateDate": "2024-01-21T14:43:29.382"
+}
+```
+
+#### PATCH patch(PersonUpdateDto personUpdateDto):
+
+Request:
+
+```http request
+http://localhost:8080/api/persons
+```
+
+Body:
+
+```json
+{
+  "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
+  "name": "Noa",
+  "surname": "SMITH1",
+  "sex": "FEMALE",
+  "passport": {
+    "passportSeries": "CD",
+    "passportNumber": "9650991"
+  },
+  "homeUuid": "6d316b83-126e-4090-bc81-4125a68923c0"
+}
+```
+
+Response:
+
+```json
+{
+  "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
+  "name": "Noa",
+  "surname": "SMITH1",
+  "sex": "FEMALE",
+  "passport": {
+    "passportSeries": "CD",
+    "passportNumber": "9650991"
+  },
+  "createDate": "2024-01-19T13:24:19.361",
+  "updateDate": "2024-01-24T01:03:11.397"
+}
+```
+
+Not found:
+
+```json
+{
+  "errorMessage": "Entity not found!",
+  "errorCode": 404
 }
 ```
 

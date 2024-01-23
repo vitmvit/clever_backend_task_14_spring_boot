@@ -60,6 +60,13 @@ public class HouseController {
                 .body(houseService.update(houseUpdateDto));
     }
 
+    @PatchMapping
+    public ResponseEntity<HouseDto> patch(@RequestBody HouseUpdateDto houseUpdateDto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(houseService.patch(houseUpdateDto));
+    }
+
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> delete(@PathVariable("uuid") UUID uuid) {
         houseService.delete(uuid);

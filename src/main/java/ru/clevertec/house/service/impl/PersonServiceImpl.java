@@ -9,6 +9,7 @@ import ru.clevertec.house.converter.HouseConverter;
 import ru.clevertec.house.converter.PersonConverter;
 import ru.clevertec.house.exception.EmptyListException;
 import ru.clevertec.house.exception.EntityNotFoundException;
+import ru.clevertec.house.exception.PatchException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.model.dto.create.PersonCreateDto;
@@ -17,6 +18,7 @@ import ru.clevertec.house.model.entity.Person;
 import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.repository.PersonRepository;
 import ru.clevertec.house.service.PersonService;
+import ru.clevertec.house.util.Patcher;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +33,8 @@ public class PersonServiceImpl implements PersonService {
     private final PersonConverter personConverter;
     private final HouseConverter houseConverter;
     private final HouseRepository houseRepository;
+
+    private final Patcher patcher;
 
     @Override
     public PersonDto getByUuid(UUID uuid) {
@@ -63,6 +67,18 @@ public class PersonServiceImpl implements PersonService {
         var person = personRepository.findPersonByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
         personConverter.merge(person, dto);
         return personConverter.convert(personRepository.save(person));
+    }
+
+    @Override
+    public PersonDto patch(PersonUpdateDto personUpdateDto) {
+        var person = personRepository.findPersonByUuid(personUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
+        try {
+            Patcher.personPatcher(person, personConverter.merge(person, personUpdateDto));
+            personRepository.save(person);
+            return personConverter.convert(person);
+        } catch (IllegalAccessException e) {
+            throw new PatchException();
+        }
     }
 
     @Override

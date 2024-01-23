@@ -57,8 +57,15 @@ public class PersonController {
     @PutMapping
     public ResponseEntity<PersonDto> update(@RequestBody PersonUpdateDto personUpdateDto) {
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(personService.update(personUpdateDto));
+    }
+
+    @PatchMapping
+    public ResponseEntity<PersonDto> patch(@RequestBody PersonUpdateDto personUpdateDto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personService.patch(personUpdateDto));
     }
 
     @DeleteMapping("/{uuid}")

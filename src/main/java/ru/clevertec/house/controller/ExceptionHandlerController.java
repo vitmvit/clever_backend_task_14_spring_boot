@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.clevertec.house.exception.CacheNotFoundException;
 import ru.clevertec.house.exception.EmptyListException;
 import ru.clevertec.house.exception.EntityNotFoundException;
+import ru.clevertec.house.exception.PatchException;
 import ru.clevertec.house.model.dto.ErrorDto;
 
 @RestControllerAdvice
@@ -15,6 +16,12 @@ public class ExceptionHandlerController {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDto error(EntityNotFoundException e) {
+        return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler(PatchException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorDto error(PatchException e) {
         return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
     }
 
