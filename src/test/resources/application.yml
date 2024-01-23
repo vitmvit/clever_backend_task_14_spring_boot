@@ -4,7 +4,6 @@ cache:
 
 spring:
   datasource:
-    #    url: jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=KEY,VALUE;INIT=RUNSCRIPT FROM 'classpath:/schema_.sql'
     url: jdbc:h2:mem:task_14_1
     driverClassName: org.h2.Driver
     username: sa
