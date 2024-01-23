@@ -123,6 +123,23 @@ public class PersonControllerTest {
     }
 
     @Test
+    public void patchShouldReturnExpectedHouseDtoAndStatus200() throws Exception {
+        PersonDto expected = PersonTestBuilder.builder().build().buildPersonDto();
+        PersonUpdateDto personUpdateDto = PersonTestBuilder.builder().build().buildPersonUpdateDto();
+
+        when(personService.patch(any())).thenReturn(expected);
+        when(personService.getByUuid(any())).thenReturn(expected);
+
+        mvc.perform(patch("/api/persons")
+                        .content(objectMapper.writeValueAsString(personUpdateDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uuid").value(expected.getUuid().toString()))
+                .andExpect(jsonPath("$.name").value(expected.getName()))
+                .andExpect(jsonPath("$.surname").value(expected.getSurname()));
+    }
+
+    @Test
     public void deleteShouldReturnStatus204() throws Exception {
         PersonDto expected = PersonTestBuilder.builder().build().buildPersonDto();
 

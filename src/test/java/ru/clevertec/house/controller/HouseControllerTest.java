@@ -124,6 +124,22 @@ public class HouseControllerTest {
     }
 
     @Test
+    public void patchShouldReturnExpectedHouseDtoAndStatus200() throws Exception {
+        HouseDto expected = HouseTestBuilder.builder().build().buildHouseDto();
+        HouseUpdateDto houseUpdateDto = HouseTestBuilder.builder().build().buildHouseUpdateDto();
+
+        when(houseService.patch(any())).thenReturn(expected);
+        when(houseService.getByUuid(any())).thenReturn(expected);
+
+        mvc.perform(patch("/api/houses")
+                        .content(objectMapper.writeValueAsString(houseUpdateDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uuid").value(expected.getUuid().toString()))
+                .andExpect(jsonPath("$.area").value(expected.getArea()));
+    }
+
+    @Test
     public void deleteShouldReturnStatus204() throws Exception {
         HouseDto expected = HouseTestBuilder.builder().build().buildHouseDto();
 

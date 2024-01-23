@@ -15,5 +15,4 @@ import java.util.UUID;
 public class PersonUpdateDto extends PersonCreateDto {
 
     private UUID uuid;
-    private UUID homeUuid;
 }

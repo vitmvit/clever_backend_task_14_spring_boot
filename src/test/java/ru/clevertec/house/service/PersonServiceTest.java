@@ -24,6 +24,7 @@ import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.repository.PersonRepository;
 import ru.clevertec.house.service.impl.PersonServiceImpl;
 import ru.clevertec.house.util.HouseTestBuilder;
+import ru.clevertec.house.util.Patcher;
 import ru.clevertec.house.util.PersonTestBuilder;
 
 import java.util.List;
@@ -51,6 +52,9 @@ public class PersonServiceTest {
 
     @Mock
     private HouseConverter houseConverter;
+
+    @Mock
+    private Patcher patcher;
 
     @InjectMocks
     private PersonServiceImpl personService;
@@ -163,6 +167,32 @@ public class PersonServiceTest {
         when(personRepository.findPersonByUuid(uuid)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> personService.update(dto));
+        verify(personRepository, times(1)).findPersonByUuid(uuid);
+    }
+
+    @Test
+    void patchShouldCallsMergeAndSaveWhenPersonFound() {
+        PersonUpdateDto dto = PersonTestBuilder.builder().build().buildPersonUpdateDto();
+        UUID uuid = dto.getUuid();
+        Person person = PersonTestBuilder.builder().build().buildPerson();
+
+        when(personRepository.findPersonByUuid(uuid)).thenReturn(Optional.of(person));
+        personService.patch(dto);
+
+        verify(personRepository, times(1)).findPersonByUuid(uuid);
+        verify(personConverter, times(1)).merge(argumentCaptor.capture(), eq(dto));
+        assertSame(person, argumentCaptor.getValue());
+        verify(personRepository, times(1)).save(person);
+    }
+
+    @Test
+    void patchShouldThrowEntityNotFoundExceptionWhenPersonNotFound() {
+        PersonUpdateDto dto = PersonTestBuilder.builder().build().buildPersonUpdateDto();
+        UUID uuid = dto.getUuid();
+
+        when(personRepository.findPersonByUuid(uuid)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> personService.patch(dto));
         verify(personRepository, times(1)).findPersonByUuid(uuid);
     }
 

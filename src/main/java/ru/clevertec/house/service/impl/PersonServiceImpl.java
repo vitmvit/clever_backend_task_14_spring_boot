@@ -73,7 +73,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto patch(PersonUpdateDto personUpdateDto) {
         var person = personRepository.findPersonByUuid(personUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
         try {
-            Patcher.personPatcher(person, personConverter.merge(person, personUpdateDto));
+            patcher.personPatcher(person, personConverter.merge(person, personUpdateDto));
             personRepository.save(person);
             return personConverter.convert(person);
         } catch (IllegalAccessException e) {

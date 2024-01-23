@@ -31,6 +31,7 @@ public class HouseServiceImpl implements HouseService {
     private final HouseRepository houseRepository;
     private final HouseConverter houseConverter;
     private final PersonConverter personConverter;
+    private final Patcher patcher;
 
     @Override
     public HouseDto getByUuid(UUID uuid) {
@@ -67,7 +68,7 @@ public class HouseServiceImpl implements HouseService {
     public HouseDto patch(HouseUpdateDto houseUpdateDto) {
         var house = houseRepository.findHouseByUuid(houseUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
         try {
-            Patcher.housePatcher(house, houseConverter.merge(house, houseUpdateDto));
+            patcher.housePatcher(house, houseConverter.merge(house, houseUpdateDto));
             houseRepository.save(house);
             return houseConverter.convert(house);
         } catch (IllegalAccessException e) {

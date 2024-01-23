@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 @Component
 public class Patcher {
 
-    public static void personPatcher(Person existingPerson, Person incompletePerson) throws IllegalAccessException {
+    public void personPatcher(Person existingPerson, Person incompletePerson) throws IllegalAccessException {
         Class<?> personClass = Person.class;
         Field[] personFields = personClass.getDeclaredFields();
         for (Field field : personFields) {
@@ -22,7 +22,7 @@ public class Patcher {
         }
     }
 
-    public static void housePatcher(House existingHouse, House incompleteHouse) throws IllegalAccessException {
+    public void housePatcher(House existingHouse, House incompleteHouse) throws IllegalAccessException {
         Class<?> houseClass = House.class;
         Field[] houseFields = houseClass.getDeclaredFields();
         for (Field field : houseFields) {

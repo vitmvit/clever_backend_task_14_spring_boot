@@ -22,6 +22,7 @@ import ru.clevertec.house.model.entity.parent.UuidModel;
 import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.service.impl.HouseServiceImpl;
 import ru.clevertec.house.util.HouseTestBuilder;
+import ru.clevertec.house.util.Patcher;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,9 @@ public class HouseServiceTest {
 
     @Mock
     private PersonConverter personConverter;
+
+    @Mock
+    private Patcher patcher;
 
     @InjectMocks
     private HouseServiceImpl houseService;
@@ -147,8 +151,36 @@ public class HouseServiceTest {
     void updateShouldThrowEntityNotFoundExceptionWhenHouseNotFound() {
         UUID uuid = HouseTestBuilder.builder().build().getUuid();
         HouseUpdateDto dto = HouseTestBuilder.builder().build().buildHouseUpdateDto();
+
         when(houseRepository.findHouseByUuid(uuid)).thenReturn(Optional.empty());
+
         assertThrows(EntityNotFoundException.class, () -> houseService.update(dto));
+        verify(houseRepository, times(1)).findHouseByUuid(uuid);
+    }
+
+    @Test
+    void patchShouldCallsMergeAndSaveWhenHouseFound() {
+        UUID uuid = HouseTestBuilder.builder().build().getUuid();
+        HouseUpdateDto dto = HouseTestBuilder.builder().build().buildHouseUpdateDto();
+        House house = new House();
+
+        when(houseRepository.findHouseByUuid(uuid)).thenReturn(Optional.of(house));
+        houseService.patch(dto);
+
+        verify(houseRepository, times(1)).findHouseByUuid(uuid);
+        verify(houseConverter, times(1)).merge(argumentCaptor.capture(), eq(dto));
+        assertSame(house, argumentCaptor.getValue());
+        verify(houseRepository, times(1)).save(house);
+    }
+
+    @Test
+    void patchShouldThrowEntityNotFoundExceptionWhenHouseNotFound() {
+        UUID uuid = HouseTestBuilder.builder().build().getUuid();
+        HouseUpdateDto dto = HouseTestBuilder.builder().build().buildHouseUpdateDto();
+
+        when(houseRepository.findHouseByUuid(uuid)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> houseService.patch(dto));
         verify(houseRepository, times(1)).findHouseByUuid(uuid);
     }
 

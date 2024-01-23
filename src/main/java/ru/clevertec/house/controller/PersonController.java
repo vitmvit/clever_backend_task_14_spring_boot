@@ -57,7 +57,7 @@ public class PersonController {
     @PutMapping
     public ResponseEntity<PersonDto> update(@RequestBody PersonUpdateDto personUpdateDto) {
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.OK)
                 .body(personService.update(personUpdateDto));
     }
 
