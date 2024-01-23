@@ -2,8 +2,6 @@ package ru.clevertec.house.util;
 
 import lombok.Builder;
 import ru.clevertec.house.constant.Type;
-import ru.clevertec.house.model.dto.HouseHistoryDto;
-import ru.clevertec.house.model.entity.HouseHistory;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,16 +21,6 @@ public class HouseHistoryTestBuilder {
 
     @Builder.Default
     private Type type = Type.TENANT;
-
-    public HouseHistory buildHouseHistory() {
-        var houseHistory = new HouseHistory(houseId, personId, date, type);
-        houseHistory.setId(id);
-        return houseHistory;
-    }
-
-    public HouseHistoryDto buildHouseHistoryDto() {
-        return new HouseHistoryDto(id, houseId, personId, date, type);
-    }
 
     public UUID getUuid() {
         return UUID.fromString("8a131fbc-38bf-4689-8f0b-958cef82a3ef");

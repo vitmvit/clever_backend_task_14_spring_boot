@@ -146,6 +146,16 @@
 
 __
 
+## Инструкции по запуску приложения:
+
+Перед запуском приложения необходимо создать базу данных в PostgreSQL с названием "clever_lab_task_14".
+При необходимости можно изменить параметры в application.yml (src/main/resources/application.yml).
+Запустить класс Application.
+
+## Swagger
+
+http://localhost:8080/api/doc/swagger-ui/index.html#/
+
 ## Реализация:
 
 ### HouseController
@@ -1226,9 +1236,6 @@ Empty list:
   "errorMessage": "List is empty!",
   "errorCode": 404
 }
-
-### Swagger
-
-http://localhost:8080/api/doc/swagger-ui/index.html#/
+```
 
 
