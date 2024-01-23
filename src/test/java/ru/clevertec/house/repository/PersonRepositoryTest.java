@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ru.clevertec.house.model.entity.House;
+import ru.clevertec.house.model.entity.Person;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,16 +21,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class HouseRepositoryTest {
+public class PersonRepositoryTest {
 
     @Autowired
-    private HouseRepository houseRepository;
+    private PersonRepository personRepository;
 
     @Test
     void findPersonByUuidShouldReturnExpectedHouse() {
-        UUID uuid = UUID.fromString("9dd06f39-dba5-4533-8472-f1d7be435491");
+        UUID uuid = UUID.fromString("faa3c8d8-b6f8-4100-b253-3cd453a03da7");
 
-        Optional<House> actual = houseRepository.findHouseByUuid(uuid);
+        Optional<Person> actual = personRepository.findPersonByUuid(uuid);
 
         assertTrue(actual.isPresent());
         assertEquals(uuid, actual.get().getUuid());
@@ -38,13 +38,13 @@ public class HouseRepositoryTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "City, 5",
-            "One, 1",
+            "Wilson, 1",
+            "a, 1",
             "123, 0",
             "null, 0"
     }, ignoreLeadingAndTrailingWhitespace = true)
     void findByCityContainingShouldReturnExpectedHouseList(String expected, int expectedSize) {
-        List<House> actual = houseRepository.findByCityContaining(expected);
+        List<Person> actual = personRepository.findBySurnameContaining(expected);
 
         assertEquals(expectedSize, actual.size());
     }
@@ -53,7 +53,7 @@ public class HouseRepositoryTest {
     void findAllHousesByIdShouldReturnExpectedHouseList() {
         List<Long> idList = List.of(1L, 2L);
 
-        List<House> actual = houseRepository.findAllHousesById(idList);
+        List<Person> actual = personRepository.findAllPersonsById(idList);
 
         assertEquals(idList.size(), actual.size());
     }
@@ -61,10 +61,10 @@ public class HouseRepositoryTest {
     @Test
     @Transactional
     void deleteByUuid() {
-        UUID uuid = UUID.fromString("5e9832cf-3a74-40ae-9dae-c70f47f08804");
+        UUID uuid = UUID.fromString("1cd31719-2064-4f90-a909-d7dd3b880d1e");
 
-        houseRepository.deleteHouseByUuid(uuid);
+        personRepository.deleteByUuid(uuid);
 
-        assertEquals(Optional.empty(), houseRepository.findHouseByUuid(uuid));
+        assertEquals(Optional.empty(), personRepository.findPersonByUuid(uuid));
     }
 }
