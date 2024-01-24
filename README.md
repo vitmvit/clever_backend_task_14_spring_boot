@@ -438,7 +438,7 @@ Body:
 
 ```json
 {
-  "uuid": "0953550a-4c67-4d3a-b95d-e7366d0c097c",
+  "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
   "area": "AreaOne",
   "country": "Country",
   "city": "City",
@@ -451,7 +451,7 @@ Response:
 
 ```json
 {
-  "uuid": "0953550a-4c67-4d3a-b95d-e7366d0c097c",
+  "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
   "area": "AreaOne",
   "country": "Country",
   "city": "City",
@@ -473,7 +473,7 @@ Body:
 
 ```json
 {
-  "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+  "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
   "area": "Area",
   "country": "CountryTwo"
 }
@@ -483,13 +483,13 @@ Response:
 
 ```json
 {
-  "uuid": "71d9d979-48d9-420c-9454-912225476fef",
+  "uuid": "6d316b83-126e-4090-bc81-4125a68923c0",
   "area": "Area",
-  "country": "CountryOne",
+  "country": "CountryTwo",
   "city": "City",
   "street": "StreetOne",
-  "number": 35,
-  "createDate": "2024-01-19T13:17:12.830"
+  "number": 0,
+  "createDate": "2024-01-19T13:16:13.992"
 }
 ```
 
