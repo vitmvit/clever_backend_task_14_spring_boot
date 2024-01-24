@@ -168,7 +168,7 @@ public class HouseServiceTest {
         houseService.patch(dto);
 
         verify(houseRepository, times(1)).findHouseByUuid(uuid);
-        verify(houseConverter, times(1)).merge(argumentCaptor.capture(), eq(dto));
+        verify(houseConverter, times(1)).convert(argumentCaptor.capture());
         assertSame(house, argumentCaptor.getValue());
         verify(houseRepository, times(1)).save(house);
     }

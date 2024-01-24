@@ -180,7 +180,7 @@ public class PersonServiceTest {
         personService.patch(dto);
 
         verify(personRepository, times(1)).findPersonByUuid(uuid);
-        verify(personConverter, times(1)).merge(argumentCaptor.capture(), eq(dto));
+        verify(personConverter, times(1)).convert(argumentCaptor.capture());
         assertSame(person, argumentCaptor.getValue());
         verify(personRepository, times(1)).save(person);
     }
