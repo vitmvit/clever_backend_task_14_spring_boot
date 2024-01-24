@@ -475,10 +475,7 @@ Body:
 {
   "uuid": "71d9d979-48d9-420c-9454-912225476fef",
   "area": "Area",
-  "country": "CountryOne",
-  "city": "City",
-  "street": "StreetOne",
-  "number": 35
+  "country": "CountryTwo"
 }
 ```
 
@@ -921,14 +918,7 @@ Body:
 ```json
 {
   "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
-  "name": "Noa",
-  "surname": "SMITH1",
-  "sex": "FEMALE",
-  "passport": {
-    "passportSeries": "CD",
-    "passportNumber": "9650991"
-  },
-  "homeUuid": "6d316b83-126e-4090-bc81-4125a68923c0"
+  "name": "Noag"
 }
 ```
 
@@ -937,15 +927,15 @@ Response:
 ```json
 {
   "uuid": "54b9906a-8747-4af7-b641-2a803849f2d1",
-  "name": "Noa",
-  "surname": "SMITH1",
+  "name": "Noag",
+  "surname": "SMITi",
   "sex": "FEMALE",
   "passport": {
     "passportSeries": "CD",
     "passportNumber": "9650991"
   },
   "createDate": "2024-01-19T13:24:19.361",
-  "updateDate": "2024-01-24T01:03:11.397"
+  "updateDate": "2024-01-24T01:44:50.530"
 }
 ```
 

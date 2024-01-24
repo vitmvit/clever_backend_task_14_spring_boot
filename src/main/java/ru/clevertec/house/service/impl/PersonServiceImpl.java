@@ -24,6 +24,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Класс PersonServiceImpl реализует интерфейс PersonService и предоставляет методы для работы Person
+ *
+ * @author Витикова Мария
+ * @see ru.clevertec.house.service.PersonService
+ */
 @Service
 @Transactional
 @AllArgsConstructor
@@ -36,18 +42,39 @@ public class PersonServiceImpl implements PersonService {
 
     private final Patcher patcher;
 
+    /**
+     * Возвращает информацию о жильце по заданному UUID.
+     *
+     * @param uuid UUID жильца
+     * @return информация о жильце
+     * @throws EntityNotFoundException если жилец не найден
+     */
     @Override
     public PersonDto getByUuid(UUID uuid) {
         var c = personRepository.findPersonByUuid(uuid).orElseThrow(EntityNotFoundException::new);
         return personConverter.convert(c);
     }
 
+    /**
+     * Возвращает страницу с информацией о жильцах.
+     *
+     * @param offset смещение страницы
+     * @param limit  лимит элементов на странице
+     * @return страница с информацией о жильцах
+     */
     @Override
     public Page<PersonDto> getAll(Integer offset, Integer limit) {
         Page<Person> personPage = personRepository.findAll(PageRequest.of(offset, limit));
         return personPage.map(personConverter::convert);
     }
 
+    /**
+     * Возвращает список жильцав, найденных по фрагменту фамилии.
+     *
+     * @param surname фрагмент фамилии
+     * @return список жильцав
+     * @throws EmptyListException если список жильцав пуст
+     */
     @Override
     public List<PersonDto> searchBySurname(String surname) {
         var personList = personRepository.findBySurnameContaining(surname);
@@ -55,6 +82,12 @@ public class PersonServiceImpl implements PersonService {
         return personList.stream().map(personConverter::convert).collect(Collectors.toList());
     }
 
+    /**
+     * Создает нового жильца на основе данных из DTO.
+     *
+     * @param dto данные для создания жильца
+     * @return созданный жилец
+     */
     @Override
     public PersonDto create(PersonCreateDto dto) {
         var person = personConverter.convert(dto);
@@ -62,6 +95,13 @@ public class PersonServiceImpl implements PersonService {
         return personConverter.convert(personRepository.save(person));
     }
 
+    /**
+     * Обновляет информацию о жильце на основе данных из DTO.
+     *
+     * @param dto данные для обновления жильца
+     * @return обновленный жилец
+     * @throws EntityNotFoundException если жилец не найден
+     */
     @Override
     public PersonDto update(PersonUpdateDto dto) {
         var person = personRepository.findPersonByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
@@ -69,11 +109,19 @@ public class PersonServiceImpl implements PersonService {
         return personConverter.convert(personRepository.save(person));
     }
 
+    /**
+     * Обновляет информацию о жильце на основе данных из DTO.
+     *
+     * @param personUpdateDto данные для обновления жильца
+     * @return обновленный жилец
+     * @throws EntityNotFoundException если жильце не найден
+     * @throws PatchException          если возникла ошибка выполнении метода personPatcher
+     */
     @Override
     public PersonDto patch(PersonUpdateDto personUpdateDto) {
         var person = personRepository.findPersonByUuid(personUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
         try {
-            patcher.personPatcher(person, personConverter.merge(person, personUpdateDto));
+            patcher.personPatcher(person, personConverter.convert(personUpdateDto));
             personRepository.save(person);
             return personConverter.convert(person);
         } catch (IllegalAccessException e) {
@@ -81,11 +129,23 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
+    /**
+     * Удаляет жильца по заданному UUID.
+     *
+     * @param uuid UUID жильца
+     */
     @Override
     public void delete(UUID uuid) {
         personRepository.deleteByUuid(uuid);
     }
 
+    /**
+     * Получает список всех домов, связанных с указанным жильцом.
+     *
+     * @param uuid UUID жильцом
+     * @return список домов
+     * @throws EntityNotFoundException если жилец не найден
+     */
     @Override
     public List<HouseDto> getAllHouses(UUID uuid) {
         var person = personRepository.findPersonByUuid(uuid).orElseThrow(EntityNotFoundException::new);

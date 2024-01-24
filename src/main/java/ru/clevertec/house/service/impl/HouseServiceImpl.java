@@ -23,6 +23,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Класс HouseServiceImpl реализует интерфейс HouseService и предоставляет методы для работы House
+ *
+ * @author Витикова Мария
+ * @see ru.clevertec.house.service.HouseService
+ */
 @Service
 @Transactional
 @AllArgsConstructor
@@ -33,17 +39,38 @@ public class HouseServiceImpl implements HouseService {
     private final PersonConverter personConverter;
     private final Patcher patcher;
 
+    /**
+     * Возвращает информацию о доме по заданному UUID.
+     *
+     * @param uuid UUID дома
+     * @return информация о доме
+     * @throws EntityNotFoundException если дом не найден
+     */
     @Override
     public HouseDto getByUuid(UUID uuid) {
         return houseConverter.convert(houseRepository.findHouseByUuid(uuid).orElseThrow(EntityNotFoundException::new));
     }
 
+    /**
+     * Возвращает страницу с информацией о домах.
+     *
+     * @param offset смещение страницы
+     * @param limit  лимит элементов на странице
+     * @return страница с информацией о домах
+     */
     @Override
     public Page<HouseDto> getAll(Integer offset, Integer limit) {
         Page<House> housePage = houseRepository.findAll(PageRequest.of(offset, limit));
         return housePage.map(houseConverter::convert);
     }
 
+    /**
+     * Возвращает список домов, найденных по фрагменту названия города.
+     *
+     * @param city фрагмент названия города
+     * @return список домов
+     * @throws EmptyListException если список домов пуст
+     */
     @Override
     public List<HouseDto> searchByCity(String city) {
         var houseList = houseRepository.findByCityContaining(city);
@@ -51,12 +78,25 @@ public class HouseServiceImpl implements HouseService {
         return houseList.stream().map(houseConverter::convert).collect(Collectors.toList());
     }
 
+    /**
+     * Создает новый дом на основе данных из DTO.
+     *
+     * @param dto данные для создания дома
+     * @return созданный дом
+     */
     @Override
     public HouseDto create(HouseCreateDto dto) {
         var house = houseConverter.convert(dto);
         return houseConverter.convert(houseRepository.save(house));
     }
 
+    /**
+     * Обновляет информацию о доме на основе данных из DTO.
+     *
+     * @param dto данные для обновления дома
+     * @return обновленный дом
+     * @throws EntityNotFoundException если дом не найден
+     */
     @Override
     public HouseDto update(HouseUpdateDto dto) {
         var house = houseRepository.findHouseByUuid(dto.getUuid()).orElseThrow(EntityNotFoundException::new);
@@ -64,11 +104,19 @@ public class HouseServiceImpl implements HouseService {
         return houseConverter.convert(houseRepository.save(house));
     }
 
+    /**
+     * Обновляет информацию о жилом доме на основе данных из DTO.
+     *
+     * @param houseUpdateDto данные для обновления дома
+     * @return обновленный дом
+     * @throws EntityNotFoundException если жилой дом не найден
+     * @throws PatchException          если возникла ошибка выполнении метода housePatcher
+     */
     @Override
     public HouseDto patch(HouseUpdateDto houseUpdateDto) {
         var house = houseRepository.findHouseByUuid(houseUpdateDto.getUuid()).orElseThrow(EntityNotFoundException::new);
         try {
-            patcher.housePatcher(house, houseConverter.merge(house, houseUpdateDto));
+            patcher.housePatcher(house, houseConverter.convert(houseUpdateDto));
             houseRepository.save(house);
             return houseConverter.convert(house);
         } catch (IllegalAccessException e) {
@@ -76,11 +124,23 @@ public class HouseServiceImpl implements HouseService {
         }
     }
 
+    /**
+     * Удаляет дом по заданному UUID.
+     *
+     * @param uuid UUID дома
+     */
     @Override
     public void delete(UUID uuid) {
         houseRepository.deleteHouseByUuid(uuid);
     }
 
+    /**
+     * Возвращает список проживающих лиц в доме по заданному UUID.
+     *
+     * @param uuid UUID дома
+     * @return список проживающих лиц
+     * @throws EntityNotFoundException если дом не найден
+     */
     @Override
     public List<PersonDto> getAllResidents(UUID uuid) {
         var house = houseRepository.findHouseByUuid(uuid).orElseThrow(EntityNotFoundException::new);
