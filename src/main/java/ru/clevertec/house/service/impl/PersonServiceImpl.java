@@ -116,6 +116,7 @@ public class PersonServiceImpl implements PersonService {
      * @return обновленный жилец
      * @throws EntityNotFoundException если жильце не найден
      * @throws PatchException          если возникла ошибка выполнении метода personPatcher
+     * @see ru.clevertec.house.util.Patcher
      */
     @Override
     public PersonDto patch(PersonUpdateDto personUpdateDto) {

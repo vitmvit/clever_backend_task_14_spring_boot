@@ -111,6 +111,7 @@ public class HouseServiceImpl implements HouseService {
      * @return обновленный дом
      * @throws EntityNotFoundException если жилой дом не найден
      * @throws PatchException          если возникла ошибка выполнении метода housePatcher
+     * @see ru.clevertec.house.util.Patcher
      */
     @Override
     public HouseDto patch(HouseUpdateDto houseUpdateDto) {
