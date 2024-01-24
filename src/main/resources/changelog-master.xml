@@ -4,12 +4,18 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="/changelog/001-changelog.xml"/>
-    <include file="/changelog/002-changelog.xml"/>
-    <include file="/changelog/003-changelog.xml"/>
-    <include file="/changelog/004-changelog.xml"/>
-    <include file="/changelog/005-changelog.xml"/>
-    <include file="/changelog/006-changelog.xml"/>
-    <include file="/changelog/007-changelog.xml"/>
+    <include file="/changelog/ddl/001-changelog.xml"/>
+    <include file="/changelog/ddl/002-changelog.xml"/>
+    <include file="/changelog/ddl/003-changelog.xml"/>
+    <include file="/changelog/ddl/004-changelog.xml"/>
+    <include file="/changelog/ddl/005-changelog.xml"/>
+    <include file="/changelog/ddl/006-changelog.xml"/>
+    <include file="/changelog/ddl/007-changelog.xml"/>
+    <include file="/changelog/ddl/008-changelog.xml"/>
+    <include file="/changelog/ddl/009-changelog.xml"/>
+    <include file="/changelog/dml/010-changelog.xml"/>
+    <include file="/changelog/dml/011-changelog.xml"/>
+    <include file="/changelog/dml/012-changelog.xml"/>
+    <include file="/changelog/dml/013-changelog.xml"/>
 
 </databaseChangeLog>

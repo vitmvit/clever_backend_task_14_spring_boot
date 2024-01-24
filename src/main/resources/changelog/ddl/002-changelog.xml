@@ -9,5 +9,4 @@
             CREATE TYPE type AS ENUM ('OWNER', 'TENANT');
         </sql>
     </changeSet>
-
 </databaseChangeLog>

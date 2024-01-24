@@ -4,25 +4,25 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="007" author="vitikova" dbms="postgresql">
+    <changeSet id="008" author="vitikova" dbms="postgresql">
         <sql>
-            CREATE OR REPLACE FUNCTION house_owner_function()
-                RETURNS trigger AS
+            CREATE OR REPLACE FUNCTION house_tenant_function()
+                RETURNS TRIGGER AS
             '
             BEGIN
                 INSERT INTO house_history (house_id, person_id, date, type)
-                VALUES (NEW.house_id, NEW.person_id, CURRENT_TIMESTAMP, ''OWNER'');
+                VALUES (NEW.house_id, NEW.id, CURRENT_TIMESTAMP, ''TENANT'');
 
                 RETURN NEW;
             END;
             '
-                LANGUAGE 'plpgsql';
+                LANGUAGE plpgsql;
 
-            CREATE TRIGGER house_owner_trigger
-                AFTER UPDATE OF person_id
-                ON house_owner
+            CREATE TRIGGER house_tenant_trigger
+                AFTER UPDATE
+                ON person
                 FOR EACH ROW
-            EXECUTE FUNCTION house_owner_function();
+            EXECUTE FUNCTION house_tenant_function();
         </sql>
     </changeSet>
 

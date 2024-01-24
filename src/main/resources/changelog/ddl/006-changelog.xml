@@ -4,12 +4,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="001" author="vitikova" dbms="postgresql">
+    <changeSet id="006" author="vitikova" dbms="postgresql">
         <sql>
-            CREATE SEQUENCE house_id_seq INCREMENT 1 MINVALUE 15 MAXVALUE 9223372036854775807 CACHE 1;
-            CREATE SEQUENCE house_history_id_seq INCREMENT 1 MINVALUE 15 MAXVALUE 9223372036854775807 CACHE 1;
-            CREATE SEQUENCE person_id_seq INCREMENT 1 MINVALUE 15 MAXVALUE 9223372036854775807 CACHE 1;
+            CREATE TABLE "public"."house_owner"
+            (
+                "house_id"  bigint NOT NULL,
+                "person_id" bigint NOT NULL
+            ) WITH (oids = false);
         </sql>
     </changeSet>
-
 </databaseChangeLog>
