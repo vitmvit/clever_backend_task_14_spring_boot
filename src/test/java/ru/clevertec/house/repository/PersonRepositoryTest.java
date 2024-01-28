@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.clevertec.house.PostgresSqlContainerInitializer;
 import ru.clevertec.house.model.entity.Person;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PersonRepositoryTest {
+public class PersonRepositoryTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private PersonRepository personRepository;
