@@ -22,6 +22,11 @@ spring:
       hibernate:
         format_sql: true
 
+security:
+  jwt:
+    token:
+      secret-key: "yoursecret"
+
 springdoc:
   swagger-ui:
     path: /api/doc/

@@ -5,10 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.clevertec.house.PostgresSqlContainerInitializer;
+import ru.clevertec.house.config.PostgresSqlContainerInitializer;
+import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.constant.Type;
 import ru.clevertec.house.model.entity.HouseHistory;
+import ru.clevertec.house.service.UserService;
 
 import java.util.List;
 import java.util.Set;
@@ -22,6 +25,12 @@ public class HouseHistoryRepositoryTest extends PostgresSqlContainerInitializer 
 
     @Autowired
     private HouseHistoryRepository houseHistoryRepository;
+
+    @MockBean
+    UserService userService;
+
+    @MockBean
+    TokenProvider tokenProvider;
 
     @Test
     void findAllByHouseIdAndTypeShouldReturnExpectedListHouseHistory() {

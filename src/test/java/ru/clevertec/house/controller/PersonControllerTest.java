@@ -3,6 +3,7 @@ package ru.clevertec.house.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -10,12 +11,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.model.dto.create.PersonCreateDto;
 import ru.clevertec.house.model.dto.update.PersonUpdateDto;
 import ru.clevertec.house.service.PersonService;
+import ru.clevertec.house.service.UserService;
 import ru.clevertec.house.util.HouseTestBuilder;
 import ru.clevertec.house.util.PersonTestBuilder;
 
@@ -32,12 +35,21 @@ import static ru.clevertec.house.constant.Constant.LIMIT;
 import static ru.clevertec.house.constant.Constant.OFFSET;
 
 @WebMvcTest(PersonController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class PersonControllerTest {
 
     @Autowired
     MockMvc mvc;
+
     @MockBean
     PersonService personService;
+
+    @MockBean
+    UserService userService;
+
+    @MockBean
+    TokenProvider tokenProvider;
+
     @Autowired
     private ObjectMapper objectMapper;
 

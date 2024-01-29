@@ -7,10 +7,13 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ru.clevertec.house.PostgresSqlContainerInitializer;
+import ru.clevertec.house.config.PostgresSqlContainerInitializer;
+import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.model.entity.Person;
+import ru.clevertec.house.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +29,12 @@ public class PersonRepositoryTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @MockBean
+    UserService userService;
+
+    @MockBean
+    TokenProvider tokenProvider;
 
     @Test
     void findPersonByUuidShouldReturnExpectedHouse() {

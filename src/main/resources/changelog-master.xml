@@ -13,6 +13,7 @@
     <include file="/changelog/ddl/007-changelog.xml"/>
     <include file="/changelog/ddl/008-changelog.xml"/>
     <include file="/changelog/ddl/009-changelog.xml"/>
+    <include file="/changelog/ddl/014-changelog.xml"/>
     <include file="/changelog/dml/010-changelog.xml"/>
     <include file="/changelog/dml/011-changelog.xml"/>
     <include file="/changelog/dml/012-changelog.xml"/>

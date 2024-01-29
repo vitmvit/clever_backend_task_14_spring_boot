@@ -1,4 +1,4 @@
-package ru.clevertec.house;
+package ru.clevertec.house.config;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +13,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @Sql("classpath:data.sql")
 public class PostgresSqlContainerInitializer {
 
-    private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.1-alpine");
+    private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.1-alpine");
 
     @BeforeAll
     static void startContainer() {

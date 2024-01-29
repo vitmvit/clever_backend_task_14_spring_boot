@@ -144,7 +144,7 @@
 9. Абстракцию следует использовать везде, чтобы избежать дублирования кода.
 10. Должно быть реализовано несколько конфигураций (минимум две — dev и prod).
 
-__
+___
 
 ## Инструкции по запуску приложения:
 
@@ -157,6 +157,85 @@ __
 http://localhost:8080/api/doc/swagger-ui/index.html#/
 
 ## Реализация:
+
+Реализована аутентификация и авторизация с помощью Spring-Boot и JWT.
+
+Для создания нового пользователя мы отправляем POST на /api/auth/signup конечную точку запрос с телом, содержащим логин,
+пароль и одну из доступных ролей.
+
+Доступные роли:
+
+```text
+ADMIN, USER
+```
+
+### AuthController
+
+#### POST запрос на создание нового пользователя:
+
+Request:
+
+```http request
+http://localhost:8080/api/auth/signup
+```
+
+```json
+{
+  "login": "User",
+  "password": "user",
+  "role": "USER"
+}
+```
+
+Если пользователь существует:
+
+```json
+{
+  "errorMessage": "Username already exists",
+  "errorCode": 404
+}
+```
+
+#### POST запрос на получение токена аутентификации:
+
+Request:
+
+```http request
+http://localhost:8080/api/auth/signin
+```
+
+```json
+{
+  "login": "User",
+  "password": "user",
+  "role": "USER"
+}
+```
+
+Response:
+
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIiwidXNlcm5hbWUiOiJVc2VyIiwiZXhwIjoxNzA2NTUzODMyfQ.fKt7m_e-Thx-JtgjbVnR7RF_9ifqyxjVogTYD2SwCfg"
+}
+```
+
+Если пользователь не найден:
+
+```json
+{
+  "errorMessage": "UserDetailsService returned null, which is an interface contract violation",
+  "errorCode": 404
+}
+```
+
+Далее полученный токен необходимо передавать в заголовках запросах по Person и House следующим образом:
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Authorization  | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIiwidXNlcm5hbWUiOiJVc2VyIiwiZXhwIjoxNzA2NTU0MTEyfQ.Hxfd_kMyME2KlTtuopg0XL2FcHxzdExhn1_RXD37hqU  |
+
+Если токен не действителен, то получим 403 код (отсутсвует доступ).
 
 ### HouseController
 

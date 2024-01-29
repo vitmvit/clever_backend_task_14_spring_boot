@@ -2,4 +2,4 @@ spring:
   application:
     name: clever_backend_task_14_spring_boot
   profiles:
-    active: test
+    active: dev

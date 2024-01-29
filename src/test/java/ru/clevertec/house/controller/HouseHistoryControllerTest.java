@@ -3,13 +3,16 @@ package ru.clevertec.house.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.service.HouseHistoryService;
+import ru.clevertec.house.service.UserService;
 import ru.clevertec.house.util.HouseHistoryTestBuilder;
 import ru.clevertec.house.util.HouseTestBuilder;
 import ru.clevertec.house.util.PersonTestBuilder;
@@ -25,12 +28,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HouseHistoryController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class HouseHistoryControllerTest {
 
     @Autowired
     MockMvc mvc;
+
     @MockBean
     HouseHistoryService houseHistoryService;
+
+    @MockBean
+    UserService userService;
+
+    @MockBean
+    TokenProvider tokenProvider;
+
     @Autowired
     private ObjectMapper objectMapper;
 
