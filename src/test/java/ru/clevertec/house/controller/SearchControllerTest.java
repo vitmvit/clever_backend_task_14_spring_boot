@@ -33,18 +33,18 @@ import static ru.clevertec.house.constant.Constant.FRAGMENT_SURNAME;
 public class SearchControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
     @MockBean
-    PersonService personService;
+    private PersonService personService;
 
     @MockBean
-    HouseService houseService;
+    private HouseService houseService;
 
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     @MockBean
-    TokenProvider tokenProvider;
+    private TokenProvider tokenProvider;
 
     @Autowired
     private ObjectMapper objectMapper;

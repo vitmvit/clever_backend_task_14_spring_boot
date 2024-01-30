@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.clevertec.house.model.entity.User;
 
 import java.time.Instant;
@@ -18,7 +18,7 @@ import static ru.clevertec.house.constant.Constant.VALIDATING_TOKEN_ERROR;
 /**
  * Класс, отвечающий за генерацию и проверку токенов аутентификации.
  */
-@Service
+@Component
 public class TokenProvider {
 
     @Value("${security.jwt.token.secret-key}")

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
@@ -23,7 +24,6 @@ import ru.clevertec.house.util.HouseTestBuilder;
 import ru.clevertec.house.util.PersonTestBuilder;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -39,16 +39,16 @@ import static ru.clevertec.house.constant.Constant.OFFSET;
 public class HouseControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     @MockBean
-    HouseService houseService;
+    private HouseService houseService;
 
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     @MockBean
-    TokenProvider tokenProvider;
+    private TokenProvider tokenProvider;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -77,7 +77,7 @@ public class HouseControllerTest {
 
         mvc.perform(get("/api/houses/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
+                .andExpect(MvcResult::getResolvedException).getClass().equals(EntityNotFoundException.class);
     }
 
     @Test

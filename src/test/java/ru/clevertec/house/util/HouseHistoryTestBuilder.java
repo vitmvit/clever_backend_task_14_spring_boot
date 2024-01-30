@@ -12,10 +12,13 @@ public class HouseHistoryTestBuilder {
 
     @Builder.Default
     LocalDateTime date = LocalDateTime.of(2024, 1, 22, 5, 34, 45, 23);
+
     @Builder.Default
     private Long id = 1L;
+
     @Builder.Default
     private Long houseId = 2L;
+
     @Builder.Default
     private Long personId = 1L;
 

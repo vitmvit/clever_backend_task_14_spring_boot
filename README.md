@@ -187,6 +187,14 @@ http://localhost:8080/api/auth/signup
 }
 ```
 
+Response:
+
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIiwidXNlcm5hbWUiOiJVc2VyIiwiZXhwIjoxNzA2NTUzODMyfQ.fKt7m_e-Thx-JtgjbVnR7RF_9ifqyxjVogTYD2SwCfg"
+}
+```
+
 Если пользователь существует:
 
 ```json
@@ -207,8 +215,7 @@ http://localhost:8080/api/auth/signin
 ```json
 {
   "login": "User",
-  "password": "user",
-  "role": "USER"
+  "password": "user"
 }
 ```
 

@@ -20,7 +20,7 @@ public class PersonTestBuilder {
     private Long id = 1L;
 
     @Builder.Default
-    private UUID uuid = UUID.fromString("c7c7b109-1128-4f32-b8f9-e1160530c2ad");
+    private UUID uuid = UUID.fromString("faa3c8d8-b6f8-4100-b253-3cd453a03da7");
 
     @Builder.Default
     private String name = "NameOne";

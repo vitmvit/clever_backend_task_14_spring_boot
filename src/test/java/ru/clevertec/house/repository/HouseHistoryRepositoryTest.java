@@ -1,12 +1,11 @@
 package ru.clevertec.house.repository;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.clevertec.house.config.PostgresSqlContainerInitializer;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.constant.Type;
@@ -18,19 +17,19 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
+@RequiredArgsConstructor
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class HouseHistoryRepositoryTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private HouseHistoryRepository houseHistoryRepository;
 
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     @MockBean
-    TokenProvider tokenProvider;
+    private TokenProvider tokenProvider;
 
     @Test
     void findAllByHouseIdAndTypeShouldReturnExpectedListHouseHistory() {

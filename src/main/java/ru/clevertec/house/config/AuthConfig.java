@@ -45,14 +45,12 @@ public class AuthConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         // open
-                        .requestMatchers(HttpMethod.GET, "/api/history/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/persons/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/houses/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         // secure
-                        .requestMatchers(HttpMethod.PUT, "/api/*").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/*").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/*").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

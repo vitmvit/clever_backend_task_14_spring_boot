@@ -11,9 +11,9 @@ import ru.clevertec.house.model.dto.ErrorDto;
 public class ExceptionHandlerController {
 
     @ExceptionHandler(InvalidJwtException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.FOUND)
     public ErrorDto error(InvalidJwtException e) {
-        return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
+        return new ErrorDto(e.getMessage(), HttpStatus.FOUND.value());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
