@@ -34,6 +34,10 @@ public class SearchControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private PersonService personService;
 
@@ -45,9 +49,6 @@ public class SearchControllerTest {
 
     @MockBean
     private TokenProvider tokenProvider;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     public void searchPersonBySurnameShouldReturnListPersonDtoAndStatus200() throws Exception {

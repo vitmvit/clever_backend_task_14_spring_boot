@@ -10,7 +10,6 @@ import ru.clevertec.house.config.PostgresSqlContainerInitializer;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.constant.Type;
 import ru.clevertec.house.model.entity.HouseHistory;
-import ru.clevertec.house.service.UserService;
 
 import java.util.List;
 import java.util.Set;
@@ -24,9 +23,6 @@ public class HouseHistoryRepositoryTest extends PostgresSqlContainerInitializer 
 
     @Autowired
     private HouseHistoryRepository houseHistoryRepository;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;

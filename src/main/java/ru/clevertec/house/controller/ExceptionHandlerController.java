@@ -25,7 +25,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(PatchException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorDto error(PatchException e) {
-        return new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value());
+        return new ErrorDto(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @ExceptionHandler(EmptyListException.class)

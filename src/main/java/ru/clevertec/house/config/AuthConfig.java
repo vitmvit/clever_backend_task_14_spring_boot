@@ -27,7 +27,11 @@ public class AuthConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/api/signup", "/api/signin"
+                "/api/signup",
+                "/api/signin",
+                "/swagger-ui/**",
+                "/api/doc/**",
+                "/v3/api-docs/**"
         );
     }
 

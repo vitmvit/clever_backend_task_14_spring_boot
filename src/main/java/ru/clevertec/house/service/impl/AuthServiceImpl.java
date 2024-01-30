@@ -18,6 +18,9 @@ import ru.clevertec.house.service.AuthService;
 
 import static ru.clevertec.house.constant.Constant.USERNAME_NOT_EXIST;
 
+/**
+ * Реализация сервиса аутентификации
+ */
 @Service
 public class AuthServiceImpl implements UserDetailsService, AuthService {
 
@@ -34,10 +37,10 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     }
 
     /**
-     * Загружает информацию о пользователе по его имени пользователя.
+     * Метод для поиска пользователя по его логину
      *
-     * @param username Имя пользователя.
-     * @return UserDetails с информацией о пользователе.
+     * @param username логин пользователя
+     * @return объект UserDetails, представляющий пользователя
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -45,11 +48,10 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     }
 
     /**
-     * Создает нового пользователя.
+     * Метод для регистрации нового пользователя
      *
-     * @param dto Данные для создания нового пользователя.
-     * @return UserDetails с информацией о новом пользователе.
-     * @throws InvalidJwtException Если пользователь с таким именем уже существует.
+     * @param dto объект SignUpDto, содержащий данные для регистрации
+     * @return объект JwtDto, содержащий JWT-токен
      */
     public JwtDto signUp(SignUpDto dto) {
         if (userRepository.existsByLogin(dto.login())) {
@@ -61,6 +63,12 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
         return buildJwt(dto.login(), dto.password());
     }
 
+    /**
+     * Метод для аутентификации пользователя
+     *
+     * @param dto объект SignInDto, содержащий данные для аутентификации
+     * @return объект JwtDto, содержащий JWT-токен
+     */
     public JwtDto signIn(SignInDto dto) {
         if (!userRepository.existsByLogin(dto.login())) {
             throw new InvalidJwtException(USERNAME_NOT_EXIST);
@@ -68,6 +76,13 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
         return buildJwt(dto.login(), dto.password());
     }
 
+    /**
+     * Метод для создания и возвращения JWT-токена
+     *
+     * @param login    логин пользователя
+     * @param password пароль пользователя
+     * @return объект JwtDto, содержащий JWT-токен
+     */
     private JwtDto buildJwt(String login, String password) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(login, password);
         var authUser = authenticationManager.authenticate(usernamePassword);

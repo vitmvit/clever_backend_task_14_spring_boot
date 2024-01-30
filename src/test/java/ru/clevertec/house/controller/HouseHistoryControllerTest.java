@@ -34,6 +34,9 @@ public class HouseHistoryControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private HouseHistoryService houseHistoryService;
 
@@ -42,9 +45,6 @@ public class HouseHistoryControllerTest {
 
     @MockBean
     private TokenProvider tokenProvider;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     public void getAllPersonResidingInHouseShouldReturnExpectedListPersonDtoAndStatus200() throws Exception {

@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.house.config.PostgresSqlContainerInitializer;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.model.entity.Person;
-import ru.clevertec.house.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +27,6 @@ public class PersonRepositoryTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private PersonRepository personRepository;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;

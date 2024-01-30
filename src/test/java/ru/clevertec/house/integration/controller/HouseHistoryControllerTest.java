@@ -14,7 +14,6 @@ import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
 import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.service.HouseHistoryService;
-import ru.clevertec.house.service.UserService;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,13 +29,12 @@ public class HouseHistoryControllerTest extends PostgresSqlContainerInitializer 
 
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private HouseHistoryService houseHistoryService;
+
     @Autowired
     private MockMvc mvc;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;
@@ -118,6 +116,6 @@ public class HouseHistoryControllerTest extends PostgresSqlContainerInitializer 
 
         mvc.perform(get("/api/history/belonged/" + uuid))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException()).getClass().equals(EntityNotFoundException.class));
+                .andExpect(MvcResult::getResolvedException).getClass().equals(EntityNotFoundException.class);
     }
 }

@@ -25,6 +25,15 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
+    /**
+     * Метод, выполняющий перехват запросов и проверку токена
+     *
+     * @param request     объект HttpServletRequest, представляющий HTTP запрос
+     * @param response    объект HttpServletResponse, представляющий HTTP ответ
+     * @param filterChain объект FilterChain, представляющий цепочку фильтров
+     * @throws ServletException если произошла ошибка в сервлете
+     * @throws IOException      если произошла ошибка ввода-вывода
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -39,10 +48,10 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Извлекает токен аутентификации из заголовка запроса.
+     * Метод для извлечения токена из HTTP запроса
      *
-     * @param request Запрос, из которого нужно извлечь токен аутентификации.
-     * @return Токен аутентификации или null, если токен не найден.
+     * @param request объект HttpServletRequest, представляющий HTTP запрос
+     * @return строковое значение токена
      */
     private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");

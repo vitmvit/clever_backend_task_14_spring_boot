@@ -13,11 +13,12 @@ import ru.clevertec.house.config.PostgresSqlContainerInitializer;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.exception.EntityNotFoundException;
 import ru.clevertec.house.model.dto.HouseDto;
+import ru.clevertec.house.model.dto.PersonDto;
 import ru.clevertec.house.model.dto.update.HouseUpdateDto;
 import ru.clevertec.house.service.HouseService;
-import ru.clevertec.house.service.UserService;
 import ru.clevertec.house.util.HouseTestBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,13 +33,12 @@ public class HouseControllerTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private HouseService houseService;
+
     @Autowired
     private MockMvc mvc;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;
@@ -75,7 +75,7 @@ public class HouseControllerTest extends PostgresSqlContainerInitializer {
     public void getAllResidentsShouldReturnExpectedListPersonDtoAndStatus200() throws Exception {
         UUID uuid = UUID.fromString("835915e7-2402-48a4-8f60-1364c6d99ed2");
 
-        var expected = houseService.getAllResidents(uuid);
+        List<PersonDto> expected = houseService.getAllResidents(uuid);
 
         mvc.perform(get("/api/houses/residents/" + uuid))
                 .andExpect(status().isOk())

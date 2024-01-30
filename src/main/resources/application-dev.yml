@@ -25,8 +25,9 @@ spring:
 security:
   jwt:
     token:
-      secret-key: "yoursecret"
+      secret-key: "secretkey"
 
 springdoc:
   swagger-ui:
+    enabled: true
     path: /api/doc/

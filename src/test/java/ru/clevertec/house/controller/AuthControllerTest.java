@@ -20,7 +20,6 @@ import ru.clevertec.house.exception.InvalidJwtException;
 import ru.clevertec.house.model.dto.auth.SignInDto;
 import ru.clevertec.house.model.dto.auth.SignUpDto;
 import ru.clevertec.house.service.AuthService;
-import ru.clevertec.house.service.UserService;
 import ru.clevertec.house.util.AuthTestBuilder;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -32,17 +31,16 @@ import static org.mockito.Mockito.when;
 public class AuthControllerTest extends PostgresSqlContainerInitializer {
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
+
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private AuthenticationManager authenticationManager;
 
     @MockBean
     private AuthService authService;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;

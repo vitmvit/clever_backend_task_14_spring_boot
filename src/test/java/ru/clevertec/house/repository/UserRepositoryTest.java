@@ -9,7 +9,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.clevertec.house.config.PostgresSqlContainerInitializer;
 import ru.clevertec.house.config.auth.TokenProvider;
 import ru.clevertec.house.model.entity.User;
-import ru.clevertec.house.service.UserService;
 import ru.clevertec.house.util.AuthTestBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,9 +20,6 @@ public class UserRepositoryTest extends PostgresSqlContainerInitializer {
 
     @Autowired
     private UserRepository userRepository;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TokenProvider tokenProvider;

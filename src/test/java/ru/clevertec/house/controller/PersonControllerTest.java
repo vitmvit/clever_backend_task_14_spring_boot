@@ -41,6 +41,9 @@ public class PersonControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private PersonService personService;
 
@@ -49,9 +52,6 @@ public class PersonControllerTest {
 
     @MockBean
     private TokenProvider tokenProvider;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void getByUuidShouldReturnExpectedHouseDtoAndStatus200() throws Exception {
