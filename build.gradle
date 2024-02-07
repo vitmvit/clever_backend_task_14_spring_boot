@@ -7,10 +7,12 @@ group 'ru.clevertec.house'
 version '1.0'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 ext {
+    starterVersion = '1.0'
     jwtVersion = '4.4.0'
     securityVersion = '6.2.1'
     jacksonVersion = '2.16.1'
@@ -23,6 +25,7 @@ ext {
 }
 
 dependencies {
+    implementation "ru.clevertec.house:exception-error-handler-spring-boot-starter:${starterVersion}"
     implementation "com.auth0:java-jwt:${jwtVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springVersion}"

@@ -16,7 +16,7 @@ import ru.clevertec.house.model.entity.User;
 import ru.clevertec.house.repository.UserRepository;
 import ru.clevertec.house.service.AuthService;
 
-import static ru.clevertec.house.constant.Constant.USERNAME_NOT_EXIST;
+import static ru.clevertec.house.constant.Constant.USERNAME_IS_EXIST;
 
 /**
  * Реализация сервиса аутентификации
@@ -55,7 +55,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
      */
     public JwtDto signUp(SignUpDto dto) {
         if (userRepository.existsByLogin(dto.login())) {
-            throw new InvalidJwtException(USERNAME_NOT_EXIST);
+            throw new InvalidJwtException(USERNAME_IS_EXIST);
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
         User newUser = new User(dto.login(), encryptedPassword, dto.role());
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
      */
     public JwtDto signIn(SignInDto dto) {
         if (!userRepository.existsByLogin(dto.login())) {
-            throw new InvalidJwtException(USERNAME_NOT_EXIST);
+            throw new InvalidJwtException(USERNAME_IS_EXIST);
         }
         return buildJwt(dto.login(), dto.password());
     }
